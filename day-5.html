@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DAY-5 A&B開頭核心單字卡 (50字全集 + 易混淆字秒記對決)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+            en: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      background-color: #030712;
+      background-image: radial-gradient(circle at 50% 12%, #0e3a5a 0%, #030712 100%);
+      font-family: 'Noto Sans TC', sans-serif;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #viewportScaler {
+      width: 720px; height: 1280px; min-width: 720px; min-height: 1280px; max-width: 720px; max-height: 1280px;
+      transform-origin: center center; flex-shrink: 0; display: flex; flex-direction: column; position: relative;
+      background: #f8fafc; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      border-radius: 40px; overflow: hidden;
+    }
+    .card-scroll-stage {
+      flex: 1 1 0%; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin; scrollbar-color: #94a3b8 #e2e8f0;
+    }
+    .card-scroll-stage::-webkit-scrollbar { width: 6px; }
+    .card-scroll-stage::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 4px; }
+    .card-scroll-stage::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    @keyframes soundWaveDay5 {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7); }
+      70% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(2, 132, 199, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+    }
+    .audio-active {
+      animation: soundWaveDay5 1.2s infinite ease-out; background: #0284c7 !important; color: #ffffff !important; border-color: #38bdf8 !important;
+    }
+    .speaking-glow { color: #0284c7 !important; transition: color 0.2s ease; }
+    .badge-pill { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 6px; display: inline-flex; align-items: center; gap: 5px; }
+  </style>
+</head>
+<body>
+  <div id="viewportScaler">
+    <!-- Header -->
+    <header class="bg-slate-900 text-white px-6 pt-5 pb-3.5 shrink-0 z-20 border-b border-slate-800 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="bg-sky-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-full shadow-sm tracking-wide">DAY 5</span>
+          <span class="font-en font-bold text-lg tracking-wide text-sky-200">A & B 開頭核心單字卡</span>
+          <span class="text-[11px] font-mono text-amber-300 bg-amber-950/70 px-2 py-0.5 rounded border border-amber-600/60 font-bold">50字全集 + 混淆對決</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="autoSpeakToggle" onclick="toggleAutoPronounce()" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 active:scale-95 transition hover:bg-slate-700">
+            <i class="fa-solid fa-volume-high text-xs" id="autoIcon"></i>
+            <span id="autoSpeakStatus">自動朗讀: 關</span>
+          </button>
+          <button onclick="toggleShuffle()" id="shuffleBtn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition active:scale-95 text-xs border border-slate-700" title="隨機洗牌抽背">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button onclick="toggleModal(true)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition active:scale-95 text-xs border border-slate-700" title="打開單字目錄與搜尋">
+            <i class="fa-solid fa-list-ul"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Category Nav -->
+      <nav class="flex items-center gap-2 overflow-x-auto pb-0.5 text-xs font-semibold scrollbar-none" id="categoryNav">
+        <button onclick="switchCategory(0)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-sky-600 text-white shadow-sm font-bold" data-id="0">全部 (50)</button>
+        <button onclick="switchCategory(1)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="1">P.022-023 (14)</button>
+        <button onclick="switchCategory(2)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="2">P.150-151 (14)</button>
+        <button onclick="switchCategory(3)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="3">P.252-253 (7)</button>
+        <button onclick="switchCategory(4)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="4">P.350-351 (15)</button>
+      </nav>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="h-1.5 w-full bg-slate-200 shrink-0">
+      <div id="deckProgressBar" class="h-full bg-gradient-to-r from-sky-500 via-indigo-500 to-amber-500 transition-all duration-300" style="width: 2%;"></div>
+    </div>
+
+    <!-- Main Card Body Stage -->
+    <main class="card-scroll-stage p-5 bg-slate-100 flex flex-col" id="cardScrollBody">
+      <article id="mainCard" class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200/90 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span id="badgeCategory" class="badge-pill bg-sky-50 text-sky-800 border border-sky-200">P.022 · #01</span>
+            <span id="badgeLevel" class="badge-pill bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">LEVEL 1~5</span>
+          </div>
+          <span id="cardIndexLabel" class="font-mono text-sm font-bold text-slate-400">01 / 50</span>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-50 via-sky-50/50 to-slate-50 rounded-2xl p-5 border border-slate-200/90">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <h1 id="vocabWord" class="font-en text-3xl sm:text-4xl font-black text-slate-900 tracking-tight break-words">ahead</h1>
+              <div class="flex flex-wrap items-center gap-2.5 mt-1.5">
+                <span id="vocabPhonetic" class="font-mono text-slate-500 text-sm sm:text-base font-bold">/əˈhed/</span>
+                <span class="text-slate-300 text-sm">•</span>
+                <span id="vocabSyllables" class="font-mono text-xs font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded border border-sky-200">a · head</span>
+              </div>
+            </div>
+            <button id="pronounceMainBtn" onclick="speakCurrentWord()" class="w-14 h-14 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-md shadow-sky-600/25 active:scale-95 transition-all shrink-0 hover:bg-sky-700" title="點擊聆聽美式真人發音">
+              <i class="fa-solid fa-volume-high text-xl"></i>
+            </button>
+          </div>
+          <div class="mt-3.5 flex items-center gap-2.5 flex-wrap">
+            <span id="vocabPos" class="bg-sky-700 text-white font-bold text-xs px-2 py-0.5 rounded shadow-xs font-mono">adv.</span>
+            <span id="vocabMeaning" class="text-slate-900 font-black text-xl sm:text-2xl leading-snug">在前面、向前</span>
+          </div>
+        </div>
+
+        <!-- Confusing Words Comparison Section -->
+        <div id="confusionComparisonBlock" class="bg-amber-50/90 border-2 border-amber-300 rounded-2xl p-4 flex flex-col gap-3 shadow-xs">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-amber-950 font-black text-sm">
+              <i class="fa-solid fa-code-compare text-amber-600 text-base"></i>
+              <span>⚡ 易混淆字秒記對決 (Confusing Words)</span>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-wider bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full font-mono">TOEIC TRAP</span>
+          </div>
+          <div id="confusionCardsContainer" class="flex flex-col gap-2.5"></div>
+        </div>
+
+        <!-- Memory Method Box -->
+        <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <div class="text-xs sm:text-sm text-slate-800 leading-relaxed flex-1">
+            <span class="font-bold block mb-0.5 text-slate-900" id="etymologyHeader">記憶法／字根拆解：</span>
+            <p id="etymologyContent" class="text-slate-600 text-xs sm:text-sm leading-relaxed">記憶心法與拆解重點</p>
+          </div>
+        </div>
+
+        <!-- Collocations Box -->
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-sm font-bold text-slate-800">
+            <i class="fa-solid fa-bullseye text-sky-600 text-base"></i>
+            <span>多益必考搭配 (Collocations)</span>
+          </div>
+          <div id="collocationBox" class="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 text-xs sm:text-sm space-y-1.5 text-slate-800"></div>
+        </div>
+
+        <!-- Example Sentences -->
+        <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">考題例句 EXAMPLE</span>
+            <button onclick="speakSentence()" class="text-xs text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-1 active:scale-95 transition bg-sky-50 px-2 py-0.5 rounded border border-sky-100">
+              <i class="fa-solid fa-volume-low text-xs"></i> 聽例句朗讀
+            </button>
+          </div>
+          <p id="sentenceEnText" class="text-xs sm:text-sm font-medium text-slate-800 leading-relaxed"></p>
+          <p id="sentenceZhText" class="text-xs text-slate-500 leading-normal"></p>
+        </div>
+
+        <!-- Word Family -->
+        <div id="familyBlock" class="bg-sky-50/70 border border-sky-100 rounded-xl p-3.5 space-y-2">
+          <div class="flex items-center gap-2 text-sm font-bold text-sky-900">
+            <i class="fa-solid fa-sitemap text-sky-600 text-base"></i>
+            <span>詞族衍生與同源字 (Family)</span>
+          </div>
+          <div id="familyContainer" class="space-y-1.5 text-xs sm:text-sm"></div>
+        </div>
+
+        <div class="py-2 text-center text-[11px] text-slate-400 select-none">
+          • 向上滑動可瀏覽完整卡片內容 •
+        </div>
+      </article>
+    </main>
+
+    <!-- Bottom Persistent Controls -->
+    <footer id="bottomNav" class="bg-white/95 backdrop-blur-md px-6 py-3.5 border-t border-slate-200/90 shrink-0 z-30 flex items-center justify-between gap-4 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
+      <button onclick="prevCard()" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition border border-slate-200">
+        <i class="fa-solid fa-chevron-left text-xs"></i><span>上一張</span>
+      </button>
+      <button onclick="speakCurrentWord()" class="w-12 h-12 bg-sky-50 text-sky-600 border border-sky-200 rounded-full flex items-center justify-center text-base shadow-xs active:scale-90 transition hover:bg-sky-100 shrink-0" title="再次朗讀此單字">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+      <button onclick="nextCard()" class="flex-1 py-3 px-4 bg-sky-600 hover:bg-sky-700 active:scale-95 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md shadow-sky-600/25">
+        <span>下一張</span><i class="fa-solid fa-chevron-right text-xs"></i>
+      </button>
+    </footer>
+
+    <!-- Directory Modal -->
+    <div id="directoryModal" class="hidden absolute inset-0 bg-slate-950/80 z-50 backdrop-blur-xs flex flex-col justify-end">
+      <div class="bg-white rounded-t-3xl max-h-[85%] flex flex-col overflow-hidden shadow-2xl">
+        <div class="p-4 border-b border-slate-200 flex flex-col gap-3 shrink-0 bg-slate-50">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-sky-600 text-base"></i>
+              <h3 class="font-bold text-slate-900 text-base">Day 5 單字目錄 (共 50 組收錄)</h3>
+            </div>
+            <button onclick="toggleModal(false)" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 flex items-center justify-center text-slate-600 text-sm">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="dirSearchInput" oninput="filterDirectoryList()" placeholder="搜尋單字、音標、中文或混淆字..." class="w-full bg-white border border-slate-300 rounded-xl pl-8 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-500 shadow-inner">
+          </div>
+        </div>
+        <div id="directoryListItems" class="overflow-y-auto p-4 space-y-2 card-scroll-stage flex-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function autoScaleViewport() {
+      const scaler = document.getElementById('viewportScaler');
+      const scale = Math.min(window.innerWidth / 720, window.innerHeight / 1280);
+      scaler.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('resize', autoScaleViewport);
+    window.addEventListener('orientationchange', autoScaleViewport);
+
+    const vocabularyList = [
+      // Page 022 (Items 1-7)
+      { id: 1, categoryId: 1, categoryName: "P.022 · #01", level: "LEVEL 1", word: "ahead", phonetic: "/əˈhed/", syllables: "a · head", pos: "adv.", meaning: "在前面、向前", etymologyHeader: "字首拆解", etymologyDesc: "字首 a- (朝向) + head (頭部) ➔ 朝著頭部方向 ➔ 在前面、提前。", comparison: { confusedWith: "head", confusedPhonetic: "/hed/", confusedPos: "v./n.", confusedMeaning: "率領、前往", mnemonic: "ahead 為副詞常搭配 ahead of schedule (提早)；head 作動詞表朝某處前往。" }, collocations: ["<b>ahead of schedule</b> 提前、超前進度", "<b>go ahead</b> 進行、開始"], sentenceEn: "The assistant went into the meeting room 20 minutes ahead of schedule.", sentenceZh: "助理提早二十分鐘進入了會議室。", family: [{ word: "forward", syllables: "for · ward", pos: "adv.", meaning: "向前" }] },
+      { id: 2, categoryId: 1, categoryName: "P.022 · #02", level: "LEVEL 1", word: "aid", phonetic: "/eɪd/", syllables: "aid", pos: "n. / v.", meaning: "幫助、援助", etymologyHeader: "援助結構", etymologyDesc: "with the aid of (在…的幫助之下)；同義字為 help/assist。", comparison: { confusedWith: "aim", confusedPhonetic: "/eɪm/", confusedPos: "n./v.", confusedMeaning: "目標、針對", mnemonic: "aid (d結尾) 是援助幫忙；aim (m結尾) 是瞄準目標。" }, collocations: ["<b>with the aid of the expert</b> 在專家的幫助下", "<b>first aid</b> 急救措施"], sentenceEn: "With the aid of the expert, these engineers finished the task within two days.", sentenceZh: "有了那位專家的幫忙，這些工程師在兩天之內完成了任務。", family: [{ word: "aide", syllables: "aide", pos: "n.", meaning: "助理、助手" }] },
+      { id: 3, categoryId: 1, categoryName: "P.022 · #03", level: "LEVEL 1", word: "aim", phonetic: "/eɪm/", syllables: "aim", pos: "n. / v.", meaning: "目的、目標；目的在於", etymologyHeader: "通告目的", etymologyDesc: "aim of the notice (通知之目的)；aim at (以…為目標)。", comparison: { confusedWith: "arm", confusedPhonetic: "/ɑːrm/", confusedPos: "n./v.", confusedMeaning: "手臂；武裝", mnemonic: "aim 是鎖定瞄準目標；arm 是手臂或拿起武器武裝。" }, collocations: ["<b>the aim of the notice</b> 這項通告的目的", "<b>aim for / at</b> 以…為目標、瞄準"], sentenceEn: "The aim of the notice is to remind the staff of the significance of the meeting.", sentenceZh: "該項通知的目的在於，提醒員工此次會議的重要性。", family: [{ word: "aimless", syllables: "aim · less", pos: "adj.", meaning: "無目標的" }] },
+      { id: 4, categoryId: 1, categoryName: "P.022 · #04", level: "LEVEL 1", word: "airline", phonetic: "/ˈerlaɪn/", syllables: "air · line", pos: "n.", meaning: "航線、航空公司", etymologyHeader: "複合字", etymologyDesc: "air (空中) + line (路線/班次) ➔ 航空公司、定期航班。", comparison: { confusedWith: "airport", confusedPhonetic: "/ˈerpɔːrt/", confusedPos: "n.", confusedMeaning: "機場、航空站", mnemonic: "airline 指運營航班的「航空公司」；airport 指實體起降設施「機場」。" }, collocations: ["<b>international airline</b> 國際航空公司", "<b>airline ticket</b> 機票"], sentenceEn: "The young man works in an international airline.", sentenceZh: "那個年輕人在一家國際航空公司工作。", family: [{ word: "airways", syllables: "air · ways", pos: "n.", meaning: "航空公司" }] },
+      { id: 5, categoryId: 1, categoryName: "P.022 · #05", level: "LEVEL 1", word: "airport", phonetic: "/ˈerpɔːrt/", syllables: "air · port", pos: "n.", meaning: "機場、航空站", etymologyHeader: "港口意象", etymologyDesc: "air (空中) + port (港口) ➔ 空中航機停泊之港 ➔ 機場。", comparison: { confusedWith: "seaport", confusedPhonetic: "/ˈsiːpɔːrt/", confusedPos: "n.", confusedMeaning: "海港、海口", mnemonic: "airport 專指飛機起降站；seaport 專指海運貨輪靠泊碼頭。" }, collocations: ["<b>meet the customer at the international airport</b> 在國際機場迎接客戶", "<b>airport tax</b> 機場稅"], sentenceEn: "The manager will meet the customer at the international airport tomorrow afternoon.", sentenceZh: "明天下午經理將在國際機場迎接客戶。", family: [{ word: "airfield", syllables: "air · field", pos: "n.", meaning: "飛機場" }] },
+      { id: 6, categoryId: 1, categoryName: "P.022 · #06", level: "LEVEL 1", word: "alarm", phonetic: "/əˈlɑːrm/", syllables: "a · larm", pos: "n. / v.", meaning: "警報、鬧鐘；使驚恐", etymologyHeader: "警報急響", etymologyDesc: "fire alarm (火警警報)；sound the alarm (拉響警報)。", comparison: { confusedWith: "alert", confusedPhonetic: "/əˈlɜːrt/", confusedPos: "adj./n.", confusedMeaning: "警惕的、警戒", mnemonic: "alarm 偏向發出聲響的警報器設備；alert 偏向心理防範警惕狀態。" }, collocations: ["<b>hearing the fire alarm</b> 聽到火警警報鈴聲", "<b>alarm clock</b> 鬧鐘"], sentenceEn: "The assistant immediately rushed out of the meeting room on hearing the fire alarm.", sentenceZh: "一聽到火警警報，助理馬上衝出會議室。", family: [{ word: "alarming", syllables: "a · larm · ing", pos: "adj.", meaning: "令人驚慌的" }] },
+      { id: 7, categoryId: 1, categoryName: "P.022 · #07", level: "LEVEL 1", word: "alike", phonetic: "/əˈlaɪk/", syllables: "a · like", pos: "adj. / adv.", meaning: "相似的；同樣地", etymologyHeader: "一視同仁", etymologyDesc: "treat sb alike (對眾人一視同仁、平等對待)。", comparison: { confusedWith: "unlike", confusedPhonetic: "/ʌnˈlaɪk/", confusedPos: "prep./adj.", confusedMeaning: "不像、不同的", mnemonic: "alike 是兩者看起來一模一樣或同等；unlike 則是否定不像。" }, collocations: ["<b>treated the employees alike</b> 對待員工們一視同仁", "<b>look alike</b> 看起來很像"], sentenceEn: "The manager treated the employees alike.", sentenceZh: "經理對員工們都一視同仁。", family: [{ word: "similarly", syllables: "sim · i · lar · ly", pos: "adv.", meaning: "同樣地" }] },
+
+      // Page 023 (Items 8-14)
+      { id: 8, categoryId: 1, categoryName: "P.023 · #08", level: "LEVEL 1", word: "all", phonetic: "/ɔːl/", syllables: "all", pos: "adj. / pron.", meaning: "所有的；全部", etymologyHeader: "全員股東", etymologyDesc: "all the shareholders (所有股東)；all right (沒問題)。", comparison: { confusedWith: "whole", confusedPhonetic: "/hoʊl/", confusedPos: "adj.", confusedMeaning: "全部的、完整的", mnemonic: "all the employees (all 置於限定詞 the 前)；the whole company (whole 置於 the 後)。" }, collocations: ["<b>All the shareholders must attend</b> 所有股東均必須出席", "<b>all right</b> 好的、沒問題"], sentenceEn: "All the shareholders must attend the meeting this afternoon.", sentenceZh: "所有股東都必須出席今天下午的會議。", family: [{ word: "overall", syllables: "o · ver · all", pos: "adj.", meaning: "全面的" }] },
+      { id: 9, categoryId: 1, categoryName: "P.023 · #09", level: "LEVEL 1", word: "allow", phonetic: "/əˈlaʊ/", syllables: "al · low", pos: "v.", meaning: "允許、許可", etymologyHeader: "被動句型", etymologyDesc: "be not allowed to do sth (不被允許攜帶寵物進辦公室)。", comparison: { confusedWith: "allocate", confusedPhonetic: "/ˈæləkeɪt/", confusedPos: "v.", confusedMeaning: "撥出、分派分配", mnemonic: "allow 是准許權限做某事；allocate 是把預算款項分派撥給特定單位。" }, collocations: ["<b>not allowed to bring pets</b> 不允許攜帶寵物入內", "<b>allow for</b> 考慮到"], sentenceEn: "The employees are not allowed to bring their pets into the office.", sentenceZh: "員工們不可以帶寵物進辦公室。", family: [{ word: "allowance", syllables: "al · low · ance", pos: "n.", meaning: "津貼、允許額" }] },
+      { id: 10, categoryId: 1, categoryName: "P.023 · #10", level: "LEVEL 1", word: "along", phonetic: "/əˈlɔːŋ/", syllables: "a · long", pos: "prep. / adv.", meaning: "沿著、順著；一起", etymologyHeader: "沿走廊走", etymologyDesc: "go straight along the corridor (沿著走廊一直往前走)。", comparison: { confusedWith: "alone", confusedPhonetic: "/əˈloʊn/", confusedPos: "adj./adv.", confusedMeaning: "獨自一人的", mnemonic: "along (有g) 沿著長路走或陪伴；alone (one) 孤單一人獨自。" }, collocations: ["<b>along the corridor</b> 沿著長廊走廊前行", "<b>along with</b> 與…一起"], sentenceEn: "Go straight along the corridor and you will find the meeting room.", sentenceZh: "沿著走廊走到底，你就會看到會議室。", family: [{ word: "alongside", syllables: "a · long · side", pos: "prep.", meaning: "在…旁邊" }] },
+      { id: 11, categoryId: 1, categoryName: "P.023 · #11", level: "LEVEL 1", word: "already", phonetic: "/ɔːlˈredi/", syllables: "al · read · y", pos: "adv.", meaning: "已經、早已", etymologyHeader: "完成式副詞", etymologyDesc: "has already visited the factory (已經多次視察工廠)。", comparison: { confusedWith: "all ready", confusedPhonetic: "/ɔːl ˈredi/", confusedPos: "phr.", confusedMeaning: "全都準備好了", mnemonic: "already 合寫為副詞「已經完成」；all ready 分寫為「全員備妥就緒」。" }, collocations: ["<b>has already visited the factory</b> 已經多次參觀過工廠", "<b>already over</b> 早已結束"], sentenceEn: "As far as I know, the chairman has already visited the factory many times.", sentenceZh: "據我所知，董事長已經多次參觀過工廠。", family: [{ word: "ready", syllables: "read · y", pos: "adj.", meaning: "準備好的" }] },
+      { id: 12, categoryId: 1, categoryName: "P.023 · #12", level: "LEVEL 1", word: "altogether", phonetic: "/ˌɔːltəˈɡeðər/", syllables: "al · to · geth · er", pos: "adv.", meaning: "總共、完全地", etymologyHeader: "帳單總額", etymologyDesc: "come to 3,600 dollars altogether (帳單總共三千六百美元)。", comparison: { confusedWith: "all together", confusedPhonetic: "/ɔːl təˈɡeðər/", confusedPos: "phr.", confusedMeaning: "聚在一起", mnemonic: "altogether 合寫是「總共/全然」；all together 分寫指「大家聚在一起」。" }, collocations: ["<b>bills come to 3,600 dollars altogether</b> 帳單加總總共三千六百元", "<b>not altogether</b> 未必全然"], sentenceEn: "Boss, the bills come to 3,600 dollars altogether.", sentenceZh: "老闆，這些帳單總共是三千六百美元。", family: [{ word: "together", syllables: "to · geth · er", pos: "adv.", meaning: "在一起" }] },
+      { id: 13, categoryId: 1, categoryName: "P.023 · #13", level: "LEVEL 1", word: "among", phonetic: "/əˈmʌŋ/", syllables: "a · mong", pos: "prep.", meaning: "在…之中(三者以上)", etymologyHeader: "優秀群體", etymologyDesc: "among the most brilliant designers (名列最優秀頂尖設計師之一)。", comparison: { confusedWith: "between", confusedPhonetic: "/bɪˈtwiːn/", confusedPos: "prep.", confusedMeaning: "在兩者之間", mnemonic: "between 用於兩者之間；among 專用於三者以上的群體之中。" }, collocations: ["<b>among the most brilliant designers</b> 公司最優秀的設計師之一", "<b>among others</b> 其中包括"], sentenceEn: "David is among the most brilliant designers in the company.", sentenceZh: "大衛是公司最優秀的設計師之一。", family: [{ word: "amid", syllables: "a · mid", pos: "prep.", meaning: "在…之中(環境)" }] },
+      { id: 14, categoryId: 1, categoryName: "P.023 · #14", level: "LEVEL 1", word: "amount", phonetic: "/əˈmaʊnt/", syllables: "a · mount", pos: "n. / v.", meaning: "數量、總額；總計", etymologyHeader: "修飾不可數", etymologyDesc: "a large amount of money (大筆金錢款項)。", comparison: { confusedWith: "number", confusedPhonetic: "/ˈnʌmbər/", confusedPos: "n.", confusedMeaning: "數字、數量(可數)", mnemonic: "amount 接不可數名詞 (amount of money)；number 接可數名詞 (number of cars)。" }, collocations: ["<b>earned a large amount of money</b> 賺得了一大筆款項收入", "<b>amount to</b> 總計達…"], sentenceEn: "The young man earned a large amount of money by working as a salesman.", sentenceZh: "這個年輕人藉由做銷售員賺了一大筆錢。", family: [{ word: "mount", syllables: "mount", pos: "v.", meaning: "攀升、堆疊" }] },
+
+      // Page 150 (Items 15-21)
+      { id: 15, categoryId: 2, categoryName: "P.150 · #15", level: "LEVEL 1", word: "approval", phonetic: "/əˈpruːvl/", syllables: "ap · prov · al", pos: "n.", meaning: "贊成、認可、批准", etymologyHeader: "主管核准", etymologyDesc: "given his approval to this project (經理已核准同意該專案)。", comparison: { confusedWith: "approve", confusedPhonetic: "/əˈpruːv/", confusedPos: "v.", confusedMeaning: "核准、贊成(動詞)", mnemonic: "approval 是核准名詞 (give approval to)；approve 是動詞。" }, collocations: ["<b>given his approval to this project</b> 批准核可了該項計畫專案", "<b>on approval</b> 供試用認可的"], sentenceEn: "The manager has given his approval to this project.", sentenceZh: "經理已經批准了這項計畫。", family: [{ word: "approve", syllables: "ap · prove", pos: "v.", meaning: "批准" }] },
+      { id: 16, categoryId: 2, categoryName: "P.150 · #16", level: "LEVEL 1", word: "approve", phonetic: "/əˈpruːv/", syllables: "ap · prove", pos: "v.", meaning: "批准、贊成、同意", etymologyHeader: "審查同意", etymologyDesc: "approve of the project (贊同並批准該項方案)。", comparison: { confusedWith: "prove", confusedPhonetic: "/pruːv/", confusedPos: "v.", confusedMeaning: "證實、證明", mnemonic: "approve 表主管核准贊同；prove 表提出證據證明真實性。" }, collocations: ["<b>approve of the project</b> 贊成批准這項方案", "<b>disapprove</b> 反對"], sentenceEn: "In any case, I will approve of the project.", sentenceZh: "無論如何，我都贊成這部方案。", family: [{ word: "approval", syllables: "ap · prov · al", pos: "n.", meaning: "批准" }] },
+      { id: 17, categoryId: 2, categoryName: "P.150 · #17", level: "LEVEL 2", word: "archive", phonetic: "/ˈɑːrkaɪv/", syllables: "ar · chive", pos: "n. / v.", meaning: "檔案館、檔案文件；存檔", etymologyHeader: "檔案保管處", etymologyDesc: "come out of the archive (秘書自文檔檔案室走出來)。", comparison: { confusedWith: "achieve", confusedPhonetic: "/əˈtʃiːv/", confusedPos: "v.", confusedMeaning: "達成、取得", mnemonic: "archive (-ive 發 /aɪv/) 是檔案資料庫；achieve 是達成目標成就。" }, collocations: ["<b>come out of the archive</b> 從檔案館資料庫走出來", "<b>archive file</b> 存檔文件"], sentenceEn: "I saw the secretary come out of the archive.", sentenceZh: "我看到秘書從檔案館走了出來。", family: [{ word: "archival", syllables: "ar · chi · val", pos: "adj.", meaning: "檔案的" }] },
+      { id: 18, categoryId: 2, categoryName: "P.150 · #18", level: "LEVEL 2", word: "arise", phonetic: "/əˈraɪz/", syllables: "a · rise", pos: "v.", meaning: "出現、上升、起因於", etymologyHeader: "紛爭起因", etymologyDesc: "arises from that stipulation (爭端起因於該條法規條款)。", comparison: { confusedWith: "arouse", confusedPhonetic: "/əˈraʊz/", confusedPos: "v.", confusedMeaning: "喚起、激起(及物)", mnemonic: "arise 是不及物動詞（問題產生）；arouse 是及物動詞（引起別人懷疑/注意）。" }, collocations: ["<b>arises from that stipulation</b> 爭執爭吵源於該條款規定", "<b>arise out of</b> 起因於"], sentenceEn: "The quarrel between them arises from that stipulation.", sentenceZh: "他們之間的爭吵是因為那項規定。", family: [{ word: "rise", syllables: "rise", pos: "v.", meaning: "上升" }] },
+      { id: 19, categoryId: 2, categoryName: "P.150 · #19", level: "LEVEL 2", word: "arrange", phonetic: "/əˈreɪndʒ/", syllables: "ar · range", pos: "v.", meaning: "安排、排列、籌備", etymologyHeader: "席位排定", etymologyDesc: "arranged based on their social status (依地位排定會議座位)。", comparison: { confusedWith: "range", confusedPhonetic: "/reɪndʒ/", confusedPos: "n./v.", confusedMeaning: "範圍、排列", mnemonic: "arrange 是主管主動規劃安排席位；range 則是數據或價格區間範圍。" }, collocations: ["<b>arranged based on social status</b> 依地位排定席次座位", "<b>arrange for</b> 為…做準備"], sentenceEn: "The seats in the meeting room should be arranged based on their social status.", sentenceZh: "會議室的座位應該根據他們的社會地位而進行安排。", family: [{ word: "arrangement", syllables: "ar · range · ment", pos: "n.", meaning: "安排" }] },
+      { id: 20, categoryId: 2, categoryName: "P.150 · #20", level: "LEVEL 2", word: "aside", phonetic: "/əˈsaɪd/", syllables: "a · side", pos: "adv. / prep.", meaning: "離開、在旁邊；在…旁邊", etymologyHeader: "暫擱一旁", etymologyDesc: "put the files aside (將卷宗擱在一旁隨即開會)。", comparison: { confusedWith: "beside", confusedPhonetic: "/bɪˈsaɪd/", confusedPos: "prep.", confusedMeaning: "在…旁邊", mnemonic: "aside 多作副詞用 (put aside 暫擱置)；beside 為介系詞表空間物理相鄰。" }, collocations: ["<b>put the files aside</b> 將文件卷宗暫置一旁", "<b>aside from</b> 除了…之外"], sentenceEn: "He put the files aside and began the meeting.", sentenceZh: "他把檔案放在一邊，開始開會。", family: [{ word: "sidelined", syllables: "side · lined", pos: "adj.", meaning: "靠邊站的" }] },
+      { id: 21, categoryId: 2, categoryName: "P.150 · #21", level: "LEVEL 2", word: "assign", phonetic: "/əˈsaɪn/", syllables: "as · sign", pos: "v.", meaning: "分配、指定、指派", etymologyHeader: "分派任務", etymologyDesc: "assign tasks for them (業務主管開始給團隊分派任務)。", comparison: { confusedWith: "sign", confusedPhonetic: "/saɪn/", confusedPos: "v./n.", confusedMeaning: "簽名；標誌", mnemonic: "assign 是主管向下分派任務配額；sign 是主管親筆簽名核定。" }, collocations: ["<b>assign tasks for them</b> 開始為業務員分派指派工作任務", "<b>assignment</b> 指派的作業任務"], sentenceEn: "The sales manager began to assign tasks for them.", sentenceZh: "銷售經理開始給他們分配任務。", family: [{ word: "assignment", syllables: "as · sign · ment", pos: "n.", meaning: "指派任務" }] },
+
+      // Page 151 (Items 22-28)
+      { id: 22, categoryId: 2, categoryName: "P.151 · #22", level: "LEVEL 1", word: "assist", phonetic: "/əˈsɪst/", syllables: "as · sist", pos: "v.", meaning: "幫助、協助", etymologyHeader: "協同執行", etymologyDesc: "assist in carrying out this plan (請同仁協助推動專案)。", comparison: { confusedWith: "consist", confusedPhonetic: "/kənˈsɪst/", confusedPos: "v.", confusedMeaning: "由…組成", mnemonic: "assist 是站旁邊伸出援手協助；consist (consist of) 是由要素組成。" }, collocations: ["<b>assist in carrying out this plan</b> 協助貫徹落實執行這項計畫", "<b>assistant</b> 助理助手"], sentenceEn: "I'd like to ask my colleagues to assist in carrying out this plan.", sentenceZh: "我想請同事們幫忙執行這項計畫。", family: [{ word: "assistance", syllables: "as · sis · tance", pos: "n.", meaning: "協助" }] },
+      { id: 23, categoryId: 2, categoryName: "P.151 · #23", level: "LEVEL 2", word: "astonish", phonetic: "/əˈstɑːnɪʃ/", syllables: "as · ton · ish", pos: "v.", meaning: "使驚訝、使吃驚", etymologyHeader: "演講令人驚豔", etymologyDesc: "astonished at his wonderful speech (被其演說深深震撼吃驚)。", comparison: { confusedWith: "extinguish", confusedPhonetic: "/ɪkˈstɪŋɡwɪʃ/", confusedPos: "v.", confusedMeaning: "撲滅、熄滅", mnemonic: "astonish 是目瞪口呆極度震撼；extinguish 是拿滅火器撲滅火勢。" }, collocations: ["<b>astonished at his wonderful speech</b> 被他精彩的演講深深驚艷震撼", "<b>astonishing</b> 令人震驚的"], sentenceEn: "I was astonished at his wonderful speech.", sentenceZh: "他精彩的演講使我非常驚訝。", family: [{ word: "astonishment", syllables: "as · ton · ish · ment", pos: "n.", meaning: "驚愕" }] },
+      { id: 24, categoryId: 2, categoryName: "P.151 · #24", level: "LEVEL 3", word: "attempt", phonetic: "/əˈtempt/", syllables: "at · tempt", pos: "v. / n.", meaning: "企圖、嘗試", etymologyHeader: "試圖偷聽", etymologyDesc: "attempted to eavesdrop on our conversation (試圖竊聽談話)。", comparison: { confusedWith: "tempt", confusedPhonetic: "/tempt/", confusedPos: "v.", confusedMeaning: "誘惑、引誘", mnemonic: "attempt 是主動嘗試挑戰或企圖行動；tempt 是誘使他人受不了誘惑。" }, collocations: ["<b>attempted to eavesdrop</b> 試圖偷聽竊聽我們私下對話", "<b>make an attempt</b> 做出嘗試"], sentenceEn: "The officer attempted to eavesdrop on our conversation.", sentenceZh: "那名官員試圖偷聽我們的談話。", family: [{ word: "attempted", syllables: "at · temp · ted", pos: "adj.", meaning: "未遂的、企圖的" }] },
+      { id: 25, categoryId: 2, categoryName: "P.151 · #25", level: "LEVEL 2", word: "attend", phonetic: "/əˈtend/", syllables: "at · tend", pos: "v.", meaning: "出席、參加", etymologyHeader: "代表出席", etymologyDesc: "attend this important meeting on behalf of company (代表公司出席)。", comparison: { confusedWith: "intend", confusedPhonetic: "/ɪnˈtend/", confusedPos: "v.", confusedMeaning: "意圖、打算", mnemonic: "attend 是人抵達會場出席；intend 是心中打算企圖 (intend to do)。" }, collocations: ["<b>attend this important meeting</b> 代表公司出席參加重大会議", "<b>attend to</b> 照料處理"], sentenceEn: "I will attend this important meeting on behalf of the company.", sentenceZh: "我將代表公司參加這個重要的會議。", family: [{ word: "attendance", syllables: "at · tend · ance", pos: "n.", meaning: "出席" }] },
+      { id: 26, categoryId: 2, categoryName: "P.151 · #26", level: "LEVEL 3", word: "attendance", phonetic: "/əˈtendəns/", syllables: "at · tend · ance", pos: "n.", meaning: "出席、到場人數", etymologyHeader: "盛大出席率", etymologyDesc: "a great attendance at the opening ceremony (開幕典禮出席極踴躍)。", comparison: { confusedWith: "attendant", confusedPhonetic: "/əˈtendənt/", confusedPos: "n.", confusedMeaning: "服務員、侍從", mnemonic: "attendance 是出席行為或到場人數；attendant 是航班服務員 (flight attendant)。" }, collocations: ["<b>a great attendance at the opening ceremony</b> 開幕典禮上有極為踴躍的人潮出席", "<b>record attendance</b> 破紀錄的出席人數"], sentenceEn: "There was a great attendance at the opening ceremony.", sentenceZh: "很多人都出席了這次的開幕典禮。", family: [{ word: "attend", syllables: "at · tend", pos: "v.", meaning: "出席" }] },
+      { id: 27, categoryId: 2, categoryName: "P.151 · #27", level: "LEVEL 2", word: "attention", phonetic: "/əˈtenʃn/", syllables: "at · ten · tion", pos: "n.", meaning: "注意力、關心、關注", etymologyHeader: "高度關注", etymologyDesc: "pay close attention to this issue (經營層密切關注該問題)。", comparison: { confusedWith: "intention", confusedPhonetic: "/ɪnˈtenʃn/", confusedPos: "n.", confusedMeaning: "意圖、目的", mnemonic: "attention 是耳聰目明的注意力關注；intention 是心裡的真實意圖動機。" }, collocations: ["<b>pay close attention to this issue</b> 經營管理層密切留意關注此議題", "<b>attract attention</b> 吸引關注"], sentenceEn: "The corporate leaders pay close attention to this issue.", sentenceZh: "公司領導人密切關注這個問題。", family: [{ word: "attentive", syllables: "at · ten · tive", pos: "adj.", meaning: "專注留心的" }] },
+      { id: 28, categoryId: 2, categoryName: "P.151 · #28", level: "LEVEL 2", word: "audience", phonetic: "/ˈɔːdiəns/", syllables: "au · di · ence", pos: "n.", meaning: "聽眾、觀眾", etymologyHeader: "台下聽眾", etymologyDesc: "audience didn't know how to react (演講畢聽眾不知如何反應)。", comparison: { confusedWith: "auditor", confusedPhonetic: "/ˈɔːdɪtər/", confusedPos: "n.", confusedMeaning: "審計員、查帳會計", mnemonic: "audience 是欣賞表演演說的台下聽眾；auditor 是查核帳冊的審計員。" }, collocations: ["<b>audience didn't know how to react</b> 聽完演講後在場聽眾不知如何反應", "<b>target audience</b> 目標受眾客群"], sentenceEn: "The audience didn't know how to react after listening to his speech.", sentenceZh: "聽完他的演說，觀眾們不知道該如何反應。", family: [{ word: "audio", syllables: "au · di · o", pos: "n.", meaning: "音訊音效" }] },
+
+      // Page 252-253 (Items 29-35)
+      { id: 29, categoryId: 3, categoryName: "P.252 · #29", level: "LEVEL 1", word: "available", phonetic: "/əˈveɪləbl/", syllables: "a · vail · a · ble", pos: "adj.", meaning: "有效的、空閒的、可利用的", etymologyHeader: "提供郵購", etymologyDesc: "available by mail order from next year (明年度起均可提供郵購服務)。", comparison: { confusedWith: "accessible", confusedPhonetic: "/əkˈsesəbl/", confusedPos: "adj.", confusedMeaning: "可進入的、易取得的", mnemonic: "available 著重「有現貨/人有空檔」；accessible 著重「通道無障礙能抵達」。" }, collocations: ["<b>available by mail order</b> 明年起均可供顧客進行通信郵購", "<b>readily available</b> 現成可用的"], sentenceEn: "All of our products will be available by mail order from next year.", sentenceZh: "從明年開始，我們的商品都可以郵購。", family: [{ word: "availability", syllables: "a · vail · a · bil · i · ty", pos: "n.", meaning: "可用性" }] },
+      { id: 30, categoryId: 3, categoryName: "P.253 · #30", level: "LEVEL 1", word: "backup", phonetic: "/ˈbækʌp/", syllables: "back · up", pos: "n. / adj. / v.", meaning: "支持、後援；候補的；做備份", etymologyHeader: "檔案備份", etymologyDesc: "kept a backup of the file (慶幸保有該重要檔案之後備備份)。", comparison: { confusedWith: "backlog", confusedPhonetic: "/ˈbækˌlɔːɡ/", confusedPos: "n.", confusedMeaning: "積壓未辦的工作", mnemonic: "backup 是當後盾的備用檔案/後援；backlog 是堆在後頭積壓未交的業務。" }, collocations: ["<b>kept a backup of the file</b> 萬幸妥善保存了這份文件的電腦備份", "<b>backup plan</b> 備用方案"], sentenceEn: "Thank goodness. He kept a backup of the file.", sentenceZh: "謝天謝地，他有這個檔案的備份。", family: [{ word: "back", syllables: "back", pos: "v.", meaning: "支持" }] },
+      { id: 31, categoryId: 3, categoryName: "P.253 · #31", level: "LEVEL 3", word: "bail", phonetic: "/beɪl/", syllables: "bail", pos: "n. / v.", meaning: "保釋、保釋金；保釋出困境", etymologyHeader: "脫困渡難關", etymologyDesc: "bail myself out (找到工作好讓自己擺脫財務困境)。", comparison: { confusedWith: "bale", confusedPhonetic: "/beɪl/", confusedPos: "n.", confusedMeaning: "一大包大捆(棉花乾草)", mnemonic: "bail 是交保候傳或援助紓困 (bail out)；bale 是一大捆貨物包裹。" }, collocations: ["<b>bail myself out</b> 找到工作以求自力渡過經濟困境", "<b>on bail</b> 保釋候審中"], sentenceEn: "I must find a job so that I could bail myself out.", sentenceZh: "我必須找到工作以便渡過困境。", family: [{ word: "bailable", syllables: "bail · a · ble", pos: "adj.", meaning: "可保釋的" }] },
+      { id: 32, categoryId: 3, categoryName: "P.253 · #32", level: "LEVEL 4", word: "ballot", phonetic: "/ˈbælət/", syllables: "bal · lot", pos: "n. / v.", meaning: "選票、投票；投票表決", etymologyHeader: "無記名投票", etymologyDesc: "elected by secret ballot (經由無記名投票選舉榮膺經理)。", comparison: { confusedWith: "bullet", confusedPhonetic: "/ˈbʊlɪt/", confusedPos: "n.", confusedMeaning: "子彈、條列符號", mnemonic: "ballot 是民主選舉選票；bullet 是槍械彈頭或條列式要點符號。" }, collocations: ["<b>elected by secret ballot</b> 透過不記名選票投票表決選舉產生", "<b>cast a ballot</b> 投票"], sentenceEn: "The manager was elected by secret ballot on a cold morning.", sentenceZh: "在一個寒冷的上午，經理通過無記名投票選舉產生了。", family: [{ word: "vote", syllables: "vote", pos: "v.", meaning: "投票" }] },
+      { id: 33, categoryId: 3, categoryName: "P.253 · #33", level: "LEVEL 2", word: "bang", phonetic: "/bæŋ/", syllables: "bang", pos: "n. / v. / adv.", meaning: "重擊、砰然巨響；砰地", etymologyHeader: "摔門巨響", etymologyDesc: "closed the door with a bang (砰地一聲巨響摔門揚長而去)。", comparison: { confusedWith: "pang", confusedPhonetic: "/pæŋ/", confusedPos: "n.", confusedMeaning: "陣痛、突然一陣劇痛", mnemonic: "bang 來自撞擊摔門的巨響「砰」；pang 則是心理或生理陣陣劇痛。" }, collocations: ["<b>closed the door with a bang</b> 砰地一聲大力關上大門拂袖而去", "<b>big bang</b> 宇宙大爆炸"], sentenceEn: "The manager closed the door with a bang and left.", sentenceZh: "經理砰地一聲關上了門，然後離開了。", family: [{ word: "pound", syllables: "pound", pos: "v.", meaning: "重擊敲打" }] },
+      { id: 34, categoryId: 3, categoryName: "P.253 · #34", level: "LEVEL 1", word: "bankbook", phonetic: "/ˈbæŋkbʊk/", syllables: "bank · book", pos: "n.", meaning: "銀行存摺", etymologyHeader: "存摺遺失掛失", etymologyDesc: "lost my bankbook and reported the loss (遺失銀行存摺並立即辦理掛失)。", comparison: { confusedWith: "bankcard", confusedPhonetic: "/ˈbæŋkkɑːrd/", confusedPos: "n.", confusedMeaning: "銀行晶片卡、金融卡", mnemonic: "bankbook 是刷本子印明細的紙本存摺簿；bankcard 是提款簽帳塑膠卡片。" }, collocations: ["<b>lost my bankbook and reported the loss</b> 遺失存摺並依法申報掛失止付", "<b>passbook</b> 銀行存摺"], sentenceEn: "I lost my bankbook and reported the loss of it.", sentenceZh: "我弄丟了銀行存摺，並且掛失了。", family: [{ word: "passbook", syllables: "pass · book", pos: "n.", meaning: "存摺" }] },
+      { id: 35, categoryId: 3, categoryName: "P.253 · #35", level: "LEVEL 1", word: "bankcard", phonetic: "/ˈbæŋkkɑːrd/", syllables: "bank · card", pos: "n.", meaning: "銀行信用卡、金融卡", etymologyHeader: "卡號外洩疑慮", etymologyDesc: "bankcard information has been leaked (擔憂銀行卡個資遭到盜錄外洩)。", comparison: { confusedWith: "bankbook", confusedPhonetic: "/ˈbæŋkbʊk/", confusedPos: "n.", confusedMeaning: "銀行紙本存摺", mnemonic: "bankcard 具磁條晶片可刷卡提款；bankbook 是紙頁印刷存摺本。" }, collocations: ["<b>bankcard information has been leaked</b> 信用卡資料疑遭駭客不當外洩", "<b>credit card</b> 信用卡"], sentenceEn: "I am afraid my bankcard information has been leaked.", sentenceZh: "我擔心我的銀行信用卡資訊已經洩漏了。", family: [{ word: "debit card", syllables: "deb · it card", pos: "n.", meaning: "簽帳金融卡" }] },
+
+      // Page 350-351 (Items 36-50)
+      { id: 36, categoryId: 4, categoryName: "P.350 · #36", level: "LEVEL 1", word: "bit", phonetic: "/bɪt/", syllables: "bit", pos: "n. / adj.", meaning: "一點；很小的、微不足道的", etymologyHeader: "面試怯場", etymologyDesc: "felt a bit scared before the interview (在面試前略感緊張畏懼)。", comparison: { confusedWith: "bite", confusedPhonetic: "/baɪt/", confusedPos: "v./n.", confusedMeaning: "咬、叮咬", mnemonic: "bit 是微量少許或電腦位元；bite 是張口用力咬下。" }, collocations: ["<b>felt a bit scared before the interview</b> 面試正式開始前感到些許膽怯緊張", "<b>a little bit</b> 一點點"], sentenceEn: "I felt a bit scared before the interview.", sentenceZh: "面試前，我有點害怕。", family: [{ word: "bits", syllables: "bits", pos: "n.", meaning: "零碎配件" }] },
+      { id: 37, categoryId: 4, categoryName: "P.350 · #37", level: "LEVEL 2", word: "black-tie", phonetic: "/ˌblæk ˈtaɪ/", syllables: "black · tie", pos: "n. / adj.", meaning: "黑色領結；要求賓客穿半正式禮服的", etymologyHeader: "半正式晚宴", etymologyDesc: "black-tie party (要求穿著半正式晚禮服的正式商務酒會)。", comparison: { confusedWith: "white-collar", confusedPhonetic: "/ˌwaɪt ˈkɑːlər/", confusedPos: "adj.", confusedMeaning: "白領階層的", mnemonic: "black-tie 規範晚會社交正裝禮服；white-collar 代表辦公室上班族。" }, collocations: ["<b>Wear your black-tie quickly</b> 趕緊把黑色正裝領結端正繫好", "<b>black-tie event</b> 需穿正裝晚宴"], sentenceEn: "The interview begins! Wear your black-tie quickly!", sentenceZh: "面試開始了，快點把你的黑色領結繫上！", family: [{ word: "formal", syllables: "for · mal", pos: "adj.", meaning: "正式的" }] },
+      { id: 38, categoryId: 4, categoryName: "P.350 · #38", level: "LEVEL 3", word: "blunder", phonetic: "/ˈblʌndər/", syllables: "blun · der", pos: "n. / v.", meaning: "大錯；做錯、犯大錯", etymologyHeader: "破產消息走漏", etymologyDesc: "terrible blunder to let her know bankruptcy (洩漏破產乃是致命錯誤)。", comparison: { confusedWith: "founder", confusedPhonetic: "/ˈfaʊndər/", confusedPos: "n./v.", confusedMeaning: "創始人；沉沒倒閉", mnemonic: "blunder 是因大意疏忽捅出的愚蠢簍子；founder 是公司創始人或沉沒。" }, collocations: ["<b>terrible blunder to let her know</b> 讓她獲悉破產實乃愚蠢之大錯", "<b>make a blunder</b> 鑄成大錯"], sentenceEn: "It was a terrible blunder to let her know the bankruptcy of the company.", sentenceZh: "讓她知道公司破產的消息真是一大錯誤。", family: [{ word: "mistake", syllables: "mis · take", pos: "n.", meaning: "過失" }] },
+      { id: 39, categoryId: 4, categoryName: "P.350 · #39", level: "LEVEL 4", word: "boardroom", phonetic: "/ˈbɔːrdruːm/", syllables: "board · room", pos: "n.", meaning: "會議室、董事會會議室", etymologyHeader: "董事長決策室", etymologyDesc: "boardroom is full of employees asking for salary (會議室擠滿要求加薪的員工)。", comparison: { confusedWith: "broadband", confusedPhonetic: "/ˈbrɔːdbænd/", confusedPos: "n.", confusedMeaning: "網路寬頻", mnemonic: "boardroom 是高階董監事閉門決策室；broadband 是大容量高速網路寬頻。" }, collocations: ["<b>boardroom is full of employees</b> 會議室內擠滿了請願爭取調薪的員工", "<b>boardroom battle</b> 董事會股權之爭"], sentenceEn: "The boardroom is full of employees who are asking for a higher salary.", sentenceZh: "會議室裡擠滿了要求加薪的員工。", family: [{ word: "board", syllables: "board", pos: "n.", meaning: "董事會" }] },
+      { id: 40, categoryId: 4, categoryName: "P.350 · #40", level: "LEVEL 4", word: "bodyguard", phonetic: "/ˈbɑːdiɡɑːrd/", syllables: "bod · y · guard", pos: "n.", meaning: "保鏢、護衛", etymologyHeader: "董座隨扈", etymologyDesc: "boss's bodyguard turned the lights on (老闆的私人護衛隨扈將燈光打開)。", comparison: { confusedWith: "safeguard", confusedPhonetic: "/ˈseɪfɡɑːrd/", confusedPos: "v./n.", confusedMeaning: "防護措施、捍衛", mnemonic: "bodyguard 是保護人身安全的肉身保鑣隨扈；safeguard 是法規安全防護措施。" }, collocations: ["<b>boss's bodyguard turned the lights on</b> 老闆的隨身保鑣走進前把電燈打開", "<b>personal bodyguard</b> 私人隨扈"], sentenceEn: "The boss's bodyguard turned the lights on.", sentenceZh: "老闆的保鑣把燈打開了。", family: [{ word: "guard", syllables: "guard", pos: "v.", meaning: "保衛" }] },
+      { id: 41, categoryId: 4, categoryName: "P.350 · #41", level: "LEVEL 4", word: "bond", phonetic: "/bɑːnd/", syllables: "bond", pos: "n. / v.", meaning: "債券、結合；使結合、以…作保", etymologyHeader: "債券市場利多", etymologyDesc: "confident about the bond market (對公司債與公債市場前景深具信心)。", comparison: { confusedWith: "bound", confusedPhonetic: "/baʊnd/", confusedPos: "adj./v.", confusedMeaning: "受約束的；必然的", mnemonic: "bond 是金融固定收益之借貸債券或緊密關係；bound 表受到約束必然會發生。" }, collocations: ["<b>confident about the bond market</b> 對債券交易市場未來的走勢充滿信心", "<b>enter into a bond</b> 簽立具約束力之契約"], sentenceEn: "I am confident about the bond market.", sentenceZh: "我對債券市場很有信心。", family: [{ word: "bonded", syllables: "bon · ded", pos: "adj.", meaning: "保稅的、有擔保的" }] },
+      { id: 42, categoryId: 4, categoryName: "P.350 · #42", level: "LEVEL 5", word: "boycott", phonetic: "/ˈbɔɪkɑːt/", syllables: "boy · cott", pos: "v. / n.", meaning: "聯合抵制、拒絕參加；聯合抵制", etymologyHeader: "拒買示威", etymologyDesc: "customers boycott our products (消費者因爭議群起拒買杯葛產品)。", comparison: { confusedWith: "buyout", confusedPhonetic: "/ˈbaɪaʊt/", confusedPos: "n.", confusedMeaning: "買斷、全數收購股權", mnemonic: "boycott 是大眾群起拒買杯葛抵制；buyout 則是砸下巨資買斷取得公司經營權。" }, collocations: ["<b>customers boycott our products</b> 消費者發起全面拒買杯葛抵制我司商品", "<b>credit boycott</b> 拒付貸款抵制"], sentenceEn: "I heard some of the customers boycott our products.", sentenceZh: "我聽說一些顧客聯合抵制我們的產品。", family: [{ word: "embargo", syllables: "em · bar · go", pos: "n.", meaning: "禁運制裁" }] },
+      { id: 43, categoryId: 4, categoryName: "P.351 · #43", level: "LEVEL 1", word: "brand", phonetic: "/brænd/", syllables: "brand", pos: "n. / v.", meaning: "商標、牌子；銘刻於、印…商標於", etymologyHeader: "品牌價值", etymologyDesc: "talk about the brand (演講探討企業商標定位與品牌策略)。", comparison: { confusedWith: "blend", confusedPhonetic: "/blend/", confusedPos: "v./n.", confusedMeaning: "混合、調和", mnemonic: "brand (a) 是商譽商標招牌品牌；blend (e) 是把多種元素調和混合。" }, collocations: ["<b>talk about the brand</b> 當我切入探討品牌商標價值時務必專注聆聽", "<b>brand mark</b> 商標品牌標誌"], sentenceEn: "Carefully listen to me when I talk about the brand.", sentenceZh: "當我講到商標時，要認真聽。", family: [{ word: "branding", syllables: "brand · ing", pos: "n.", meaning: "品牌塑造" }] },
+      { id: 44, categoryId: 4, categoryName: "P.351 · #44", level: "LEVEL 2", word: "breach", phonetic: "/briːtʃ/", syllables: "breach", pos: "n. / v.", meaning: "違背、違反；違反、破壞", etymologyHeader: "合約違約起訴", etymologyDesc: "sue him for the breach of the contract (因惡意違約對其提告求償)。", comparison: { confusedWith: "bleach", confusedPhonetic: "/bliːtʃ/", confusedPos: "v./n.", confusedMeaning: "漂白劑；漂白", mnemonic: "breach (r) 是法律條文破口或重大毀約違約；bleach (l) 是洗衣用漂白劑水。" }, collocations: ["<b>breach of the contract</b> 嚴重違反合約條款約定", "<b>breach of security</b> 資安漏洞違規"], sentenceEn: "I advise you to sue him for the breach of the contract.", sentenceZh: "我建議你控告他違反合約。", family: [{ word: "infringement", syllables: "in · fringe · ment", pos: "n.", meaning: "侵權侵犯" }] },
+      { id: 45, categoryId: 4, categoryName: "P.351 · #45", level: "LEVEL 3", word: "breathtaking", phonetic: "/ˈbreθteɪkɪŋ/", syllables: "breath · tak · ing", pos: "adj.", meaning: "驚人的、驚險的、驚嘆的", etymologyHeader: "絕美景致", etymologyDesc: "scenery was quite breathtaking (頂峰俯瞰景色美得令人屏息驚嘆)。", comparison: { confusedWith: "heartbreaking", confusedPhonetic: "/ˈhɑːrtbreɪkɪŋ/", confusedPos: "adj.", confusedMeaning: "令人心碎悲痛的", mnemonic: "breathtaking 是美到讓人屏息讚嘆；heartbreaking 則是讓人痛徹心扉悲痛欲絕。" }, collocations: ["<b>scenery was quite breathtaking</b> 登高遠眺山頂風光極其雄偉令人嘆為觀止", "<b>breathtaking beauty</b> 絕美佳人/美景"], sentenceEn: "The scenery from the top of the mountain was quite breathtaking.", sentenceZh: "從山頂望去，風景美極了。", family: [{ word: "spectacular", syllables: "spec · tac · u · lar", pos: "adj.", meaning: "壯觀壯麗的" }] },
+      { id: 46, categoryId: 4, categoryName: "P.351 · #46", level: "LEVEL 4", word: "bribery", phonetic: "/ˈbraɪbəri/", syllables: "brib · er · y", pos: "n.", meaning: "行賄、受賄", etymologyHeader: "公司貪瀆賄賂", etymologyDesc: "problem of bribery in the company (探討公司內部收受回扣貪腐收賄問題)。", comparison: { confusedWith: "bravery", confusedPhonetic: "/ˈbreɪvəri/", confusedPos: "n.", confusedMeaning: "英勇、勇氣勇猛", mnemonic: "bribery (b-i) 是收受黑錢非法行賄；bravery (b-a-v) 是臨危不亂的英勇氣魄。" }, collocations: ["<b>problem of bribery in the company</b> 探討公司內部收受回扣與行賄貪瀆弊端", "<b>commit bribery</b> 犯下收賄受賄罪"], sentenceEn: "First, let's talk about the problem of bribery in the company.", sentenceZh: "首先，讓我們討論一下公司裡的賄賂問題。", family: [{ word: "bribe", syllables: "bribe", pos: "v./n.", meaning: "行賄賄賂" }] },
+      { id: 47, categoryId: 4, categoryName: "P.351 · #47", level: "LEVEL 5", word: "brochure", phonetic: "/broʊˈʃʊr/", syllables: "bro · chure", pos: "n.", meaning: "手冊、小冊子", etymologyHeader: "產品導覽手冊", etymologyDesc: "reads the brochure slower than colleagues (閱讀宣傳導覽手冊較為緩慢)。", comparison: { confusedWith: "posture", confusedPhonetic: "/ˈpɑːstʃər/", confusedPos: "n.", confusedMeaning: "身體姿勢；態度立場", mnemonic: "brochure 是參展發送的行銷摺頁手冊；posture 是端正坐姿或談判時的立場姿態。" }, collocations: ["<b>reads the brochure slower than others</b> 閱讀這本產品介紹導覽手冊比較仔細緩慢", "<b>travel brochure</b> 觀光旅遊摺頁小冊"], sentenceEn: "He reads the brochure slower than other colleagues.", sentenceZh: "他讀小冊子比其他同事都要慢。", family: [{ word: "pamphlet", syllables: "pam · phlet", pos: "n.", meaning: "宣傳小冊" }] },
+      { id: 48, categoryId: 4, categoryName: "P.351 · #48", level: "LEVEL 5", word: "brutal", phonetic: "/ˈbruːtl/", syllables: "bru · tal", pos: "adj.", meaning: "殘忍的、蠻不講理的", etymologyHeader: "抗議粗暴蠻橫", etymologyDesc: "protest against the brutal behavior (提早到場集會抗議蠻不講理粗暴行為)。", comparison: { confusedWith: "vital", confusedPhonetic: "/ˈvaɪtl/", confusedPos: "adj.", confusedMeaning: "至關重要的、維生的", mnemonic: "brutal 是野蠻殘酷的暴行；vital 是攸關生存必備極其重要的關鍵核心。" }, collocations: ["<b>protest against the brutal behavior</b> 提前到公司抗議該項蠻不講理的粗暴待遇行徑", "<b>brutal competition</b> 殘酷無情的市場競爭"], sentenceEn: "They came to the company earlier than usual to protest against the brutal behavior.", sentenceZh: "為了抗議這一殘忍的行為，他們比平時更早到公司。", family: [{ word: "brutality", syllables: "bru · tal · i · ty", pos: "n.", meaning: "野蠻殘暴" }] },
+      { id: 49, categoryId: 4, categoryName: "P.351 · #49", level: "LEVEL 5", word: "bulk", phonetic: "/bʌlk/", syllables: "bulk", pos: "n. / v.", meaning: "體積、容量、大多數；使擴大", etymologyHeader: "絕大多數搭捷運", etymologyDesc: "bulk of my colleagues go to work by tube (絕大多數同仁搭乘地下鐵通勤)。", comparison: { confusedWith: "hulk", confusedPhonetic: "/hʌlk/", confusedPos: "n.", confusedMeaning: "龐然大物、廢棄大船", mnemonic: "bulk 是大宗採購批發或大多數 (bulk of)；hulk 則是廢棄船身或龐然巨物。" }, collocations: ["<b>The bulk of my colleagues</b> 我大多數的同仁同僚", "<b>bulk cargo</b> 散裝貨物"], sentenceEn: "The bulk of my colleagues go to work by tube.", sentenceZh: "我大多數的同事都乘地鐵去上班。", family: [{ word: "bulky", syllables: "bul · ky", pos: "adj.", meaning: "體積龐大笨重的" }] },
+      { id: 50, categoryId: 4, categoryName: "P.351 · #50", level: "LEVEL 5", word: "bust", phonetic: "/bʌst/", syllables: "bust", pos: "n. / adj. / v.", meaning: "破產、半身像；破產了的；使破產", etymologyHeader: "企業驚傳倒閉破產", etymologyDesc: "our company will go bust (難以置信老牌企業竟會走入倒閉破產清算)。", comparison: { confusedWith: "burst", confusedPhonetic: "/bɜːrst/", confusedPos: "v./n.", confusedMeaning: "爆炸、突然破裂", mnemonic: "bust 常用於經濟企業崩潰倒閉破產 (go bust)；burst 物理破裂或突然爆發情緒。" }, collocations: ["<b>our company will go bust</b> 難以接受我們經營的公司即將倒閉破產清算", "<b>go bust</b> 倒閉破產"], sentenceEn: "I can't believe that our company will go bust.", sentenceZh: "我不敢相信，公司要破產了。", family: [{ word: "bankrupt", syllables: "bank · rupt", pos: "adj.", meaning: "破產的" }] }
+    ];
+
+    let activeCardIndex = 0;
+    let autoPronounce = false;
+    let isShuffled = false;
+    let filteredIndices = vocabularyList.map((_, i) => i);
+    let selectedCategoryId = 0;
+
+    function pronounceSpeech(textString, rateValue = 0.85) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(textString.replace(/<[^>]*>?/gm, ''));
+      u.lang = 'en-US';
+      u.rate = rateValue;
+      const btn = document.getElementById('pronounceMainBtn');
+      const title = document.getElementById('vocabWord');
+      u.onstart = () => { if (btn) btn.classList.add('audio-active'); if (title) title.classList.add('speaking-glow'); };
+      u.onend = u.onerror = () => { if (btn) btn.classList.remove('audio-active'); if (title) title.classList.remove('speaking-glow'); };
+      window.speechSynthesis.speak(u);
+    }
+
+    function speakCurrentWord() {
+      const o = vocabularyList[filteredIndices[activeCardIndex]];
+      if (o) pronounceSpeech(o.word, 0.85);
+    }
+
+    function speakSentence() {
+      const o = vocabularyList[filteredIndices[activeCardIndex]];
+      if (o) pronounceSpeech(o.sentenceEn, 0.9);
+    }
+
+    function toggleAutoPronounce() {
+      autoPronounce = !autoPronounce;
+      const status = document.getElementById('autoSpeakStatus');
+      const btn = document.getElementById('autoSpeakToggle');
+      if (autoPronounce) {
+        status.innerText = "自動朗讀: 開";
+        btn.classList.add('bg-sky-600', 'text-white', 'border-sky-500');
+        btn.classList.remove('bg-slate-800', 'text-slate-300');
+        speakCurrentWord();
+      } else {
+        status.innerText = "自動朗讀: 關";
+        btn.classList.remove('bg-sky-600', 'text-white', 'border-sky-500');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      }
+    }
+
+    function toggleShuffle() {
+      isShuffled = !isShuffled;
+      const btn = document.getElementById('shuffleBtn');
+      if (isShuffled) {
+        btn.classList.add('bg-sky-600', 'text-white', 'border-sky-500');
+        btn.classList.remove('bg-slate-800', 'text-slate-300');
+        for (let i = filteredIndices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [filteredIndices[i], filteredIndices[j]] = [filteredIndices[j], filteredIndices[i]];
+        }
+      } else {
+        btn.classList.remove('bg-sky-600', 'text-white', 'border-sky-500');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+        switchCategory(selectedCategoryId);
+        return;
+      }
+      activeCardIndex = 0;
+      renderFlashcard();
+      buildDirectoryUI();
+    }
+
+    function renderFlashcard() {
+      const card = vocabularyList[filteredIndices[activeCardIndex]];
+      if (!card) return;
+
+      const stage = document.getElementById('cardScrollBody');
+      if (stage) stage.scrollTop = 0;
+
+      document.getElementById('badgeCategory').innerText = card.categoryName;
+      document.getElementById('badgeLevel').innerText = card.level;
+      document.getElementById('cardIndexLabel').innerText = `${String(activeCardIndex + 1).padStart(2, '0')} / ${String(filteredIndices.length).padStart(2, '0')}`;
+      document.getElementById('deckProgressBar').style.width = `${((activeCardIndex + 1) / filteredIndices.length) * 100}%`;
+
+      document.getElementById('vocabWord').innerText = card.word;
+      document.getElementById('vocabPhonetic').innerText = card.phonetic;
+      document.getElementById('vocabSyllables').innerText = card.syllables;
+      document.getElementById('vocabPos').innerText = card.pos;
+      document.getElementById('vocabMeaning').innerText = card.meaning;
+
+      const cmpBlock = document.getElementById('confusionComparisonBlock');
+      const cmpContainer = document.getElementById('confusionCardsContainer');
+      if (card.comparison) {
+        cmpBlock.classList.remove('hidden');
+        cmpContainer.innerHTML = `
+          <div class="grid grid-cols-2 gap-2 bg-white/95 rounded-xl p-2.5 border border-amber-200 shadow-xs">
+            <div class="bg-sky-50/70 border border-sky-200/90 rounded-lg p-2 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-en font-black text-slate-900 text-sm truncate">${card.word}</span>
+                <button onclick="pronounceSpeech('${card.word}', 0.85)" class="w-6 h-6 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-700 flex items-center justify-center shrink-0 text-[10px]" title="聽發音"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <div class="mt-1">
+                <span class="font-mono text-[10px] text-slate-500 font-semibold">${card.phonetic}</span>
+                <p class="text-xs text-sky-900 font-bold mt-0.5 leading-tight">${card.meaning}</p>
+              </div>
+            </div>
+            <div class="bg-rose-50/70 border border-rose-200/90 rounded-lg p-2 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-en font-black text-rose-950 text-sm truncate">${card.comparison.confusedWith}</span>
+                <button onclick="pronounceSpeech('${card.comparison.confusedWith}', 0.85)" class="w-6 h-6 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 flex items-center justify-center shrink-0 text-[10px]" title="聽發音"><i class="fa-solid fa-volume-high"></i></button>
+              </div>
+              <div class="mt-1">
+                <span class="font-mono text-[10px] text-rose-500 font-semibold">${card.comparison.confusedPhonetic}</span>
+                <p class="text-xs text-rose-900 font-bold mt-0.5 leading-tight">${card.comparison.confusedMeaning}</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-amber-100/70 border border-amber-300/80 rounded-xl px-3 py-2 text-xs text-amber-950 leading-relaxed font-medium">
+            <span class="font-bold text-amber-900"><i class="fa-solid fa-key text-[11px] mr-1 text-amber-700"></i>破題心法：</span>${card.comparison.mnemonic}
+          </div>
+        `;
+      } else {
+        cmpBlock.classList.add('hidden');
+      }
+
+      document.getElementById('etymologyHeader').innerText = card.etymologyHeader + "：";
+      document.getElementById('etymologyContent').innerText = card.etymologyDesc;
+
+      document.getElementById('collocationBox').innerHTML = card.collocations.map(col => `
+        <div class="flex items-start gap-2">
+          <span class="text-sky-600 font-bold leading-tight mt-0.5">•</span>
+          <span class="leading-relaxed flex-1">${col}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('sentenceEnText').innerHTML = card.sentenceEn.replace(new RegExp(`\\b${card.word}\\b`, 'gi'), `<b class="text-sky-700 underline decoration-sky-300 decoration-2 underline-offset-2">$1</b>`);
+      document.getElementById('sentenceZhText').innerText = card.sentenceZh;
+
+      const famBlock = document.getElementById('familyBlock');
+      const famContainer = document.getElementById('familyContainer');
+      if (card.family && card.family.length > 0) {
+        famBlock.classList.remove('hidden');
+        famContainer.innerHTML = card.family.map(fam => `
+          <div class="flex items-center justify-between bg-white/95 p-2.5 rounded-xl border border-sky-100 shadow-xs">
+            <div class="flex-1 min-w-0 pr-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-slate-900 font-en text-xs sm:text-sm">${fam.word}</span>
+                <span class="text-[10px] text-sky-700 font-bold px-1.5 py-0.5 bg-sky-100 rounded font-mono">${fam.pos}</span>
+                <span class="text-[10px] text-slate-500 font-mono">${fam.syllables}</span>
+              </div>
+              <p class="text-slate-600 text-[11px] sm:text-xs mt-0.5 truncate">${fam.meaning}</p>
+            </div>
+            <button onclick="pronounceSpeech('${fam.word}', 0.85)" class="w-7 h-7 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 active:scale-90 transition text-xs" title="聆聽發音"><i class="fa-solid fa-volume-high"></i></button>
+          </div>
+        `).join('');
+      } else {
+        famBlock.classList.add('hidden');
+      }
+
+      if (autoPronounce) setTimeout(speakCurrentWord, 250);
+    }
+
+    function nextCard() { activeCardIndex = (activeCardIndex < filteredIndices.length - 1) ? activeCardIndex + 1 : 0; renderFlashcard(); }
+    function prevCard() { activeCardIndex = (activeCardIndex > 0) ? activeCardIndex - 1 : filteredIndices.length - 1; renderFlashcard(); }
+
+    function switchCategory(catId) {
+      selectedCategoryId = catId;
+      isShuffled = false;
+      const shuffleBtn = document.getElementById('shuffleBtn');
+      if (shuffleBtn) { shuffleBtn.classList.remove('bg-sky-600', 'text-white', 'border-sky-500'); shuffleBtn.classList.add('bg-slate-800', 'text-slate-300'); }
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.className = (parseInt(btn.dataset.id) === catId)
+          ? "cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-sky-600 text-white shadow-sm font-bold"
+          : "cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium";
+      });
+      filteredIndices = (catId === 0) ? vocabularyList.map((_, i) => i) : vocabularyList.map((item, i) => item.categoryId === catId ? i : -1).filter(i => i !== -1);
+      activeCardIndex = 0;
+      renderFlashcard();
+      buildDirectoryUI();
+    }
+
+    function toggleModal(show) {
+      const m = document.getElementById('directoryModal');
+      if (show) {
+        buildDirectoryUI();
+        m.classList.remove('hidden');
+        setTimeout(() => document.getElementById('dirSearchInput').focus(), 150);
+      } else {
+        m.classList.add('hidden');
+      }
+    }
+
+    function jumpToWord(fullListIndex) {
+      let idx = filteredIndices.indexOf(fullListIndex);
+      if (idx === -1) { switchCategory(0); idx = fullListIndex; }
+      activeCardIndex = idx;
+      renderFlashcard();
+      toggleModal(false);
+    }
+
+    function filterDirectoryList() {
+      buildDirectoryUI(document.getElementById('dirSearchInput').value.toLowerCase().trim());
+    }
+
+    function buildDirectoryUI(query = '') {
+      const container = document.getElementById('directoryListItems');
+      const items = vocabularyList.filter(item => {
+        if (!query) return true;
+        const cmpMatch = item.comparison ? (item.comparison.confusedWith.toLowerCase().includes(query) || item.comparison.confusedMeaning.toLowerCase().includes(query)) : false;
+        return item.word.toLowerCase().includes(query) || item.meaning.toLowerCase().includes(query) || item.phonetic.toLowerCase().includes(query) || cmpMatch;
+      });
+      if (items.length === 0) {
+        container.innerHTML = `<div class="text-center py-8 text-xs text-slate-400">查無符合的單字</div>`;
+        return;
+      }
+      container.innerHTML = items.map(item => {
+        const fullIndex = item.id - 1;
+        const isCur = filteredIndices[activeCardIndex] === fullIndex;
+        return `
+          <div onclick="jumpToWord(${fullIndex})" class="p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition active:scale-98 ${isCur ? 'bg-sky-50 border-sky-300 shadow-xs' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}">
+            <div class="flex items-center gap-2.5 min-w-0 pr-2">
+              <span class="font-mono text-xs font-bold text-slate-400 w-5 shrink-0">${String(item.id).padStart(2, '0')}</span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-en font-bold text-slate-900 text-xs sm:text-sm">${item.word}</span>
+                  <span class="text-[10px] text-slate-500 font-mono">${item.syllables}</span>
+                  ${item.comparison ? `<span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded border border-amber-300">vs ${item.comparison.confusedWith}</span>` : ''}
+                </div>
+                <p class="text-xs text-slate-600 truncate mt-0.5">${item.meaning}</p>
+              </div>
+            </div>
+            <button onclick="event.stopPropagation(); pronounceSpeech('${item.word}', 0.85)" class="w-7 h-7 rounded-full bg-white hover:bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 border border-slate-200 text-xs"><i class="fa-solid fa-volume-high"></i></button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    let touchStartX = 0;
+    const stage = document.getElementById('cardScrollBody');
+    stage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (diff < -50) nextCard();
+      else if (diff > 50) prevCard();
+    }, { passive: true });
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextCard();
+      else if (e.key === 'ArrowLeft') prevCard();
+      else if (e.key === 'p' || e.key === 'P') speakCurrentWord();
+    });
+
+    window.onload = () => { autoScaleViewport(); renderFlashcard(); };
+  </script>
+</body>
+</html>

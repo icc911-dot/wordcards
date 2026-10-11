@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DAY-2 A開頭核心單字卡 (56字全集 + 易混淆字秒記對決)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+            en: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #030712;
+      background-image: radial-gradient(circle at 50% 12%, #1e1b4b 0%, #030712 100%);
+      font-family: 'Noto Sans TC', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #viewportScaler {
+      width: 720px;
+      height: 1280px;
+      min-width: 720px;
+      min-height: 1280px;
+      max-width: 720px;
+      max-height: 1280px;
+      transform-origin: center center;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #f8fafc;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      border-radius: 40px;
+      overflow: hidden;
+    }
+
+    .card-scroll-stage {
+      flex: 1 1 0%;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 #e2e8f0;
+    }
+
+    .card-scroll-stage::-webkit-scrollbar {
+      width: 6px;
+    }
+    .card-scroll-stage::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+    .card-scroll-stage::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 4px;
+    }
+
+    @keyframes soundWaveDay2 {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+      70% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(99, 102, 241, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+    .audio-active {
+      animation: soundWaveDay2 1.2s infinite ease-out;
+      background: #4f46e5 !important;
+      color: #ffffff !important;
+      border-color: #818cf8 !important;
+    }
+    
+    .speaking-glow {
+      color: #4f46e5 !important;
+      transition: color 0.2s ease;
+    }
+
+    .badge-pill {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="viewportScaler">
+    <!-- Top Header (flex-shrink: 0) -->
+    <header class="bg-slate-900 text-white px-6 pt-5 pb-3.5 shrink-0 z-20 border-b border-slate-800 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="bg-indigo-600 text-white font-mono font-bold text-xs px-2.5 py-1 rounded-full shadow-sm tracking-wide">DAY 2</span>
+          <span class="font-en font-bold text-lg tracking-wide text-indigo-200">A開頭核心單字卡</span>
+          <span class="text-[11px] font-mono text-amber-300 bg-amber-950/70 px-2 py-0.5 rounded border border-amber-600/60 font-bold">56字全集 + 混淆對決</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Auto-speak button -->
+          <button id="autoSpeakToggle" onclick="toggleAutoPronounce()" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 active:scale-95 transition hover:bg-slate-700">
+            <i class="fa-solid fa-volume-high text-xs" id="autoIcon"></i>
+            <span id="autoSpeakStatus">自動朗讀: 關</span>
+          </button>
+          <!-- Shuffle Button -->
+          <button onclick="toggleShuffle()" id="shuffleBtn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition active:scale-95 text-xs border border-slate-700" title="隨機洗牌抽背">
+            <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <!-- Directory Modal Button -->
+          <button onclick="toggleModal(true)" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition active:scale-95 text-xs border border-slate-700" title="打開單字目錄與搜尋">
+            <i class="fa-solid fa-list-ul"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <nav class="flex items-center gap-2 overflow-x-auto pb-0.5 text-xs font-semibold scrollbar-none" id="categoryNav">
+        <button onclick="switchCategory(0)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-indigo-600 text-white shadow-sm font-bold" data-id="0">全部 (56)</button>
+        <button onclick="switchCategory(1)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="1">❶ 核心詞族</button>
+        <button onclick="switchCategory(2)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="2">❷ 字首字根</button>
+        <button onclick="switchCategory(3)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="3">❸ 雙胞混淆</button>
+        <button onclick="switchCategory(4)" class="cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium" data-id="4">❹ 多益商務</button>
+      </nav>
+    </header>
+
+    <!-- Top Progress Bar (flex-shrink: 0) -->
+    <div class="h-1.5 w-full bg-slate-200 shrink-0">
+      <div id="deckProgressBar" class="h-full bg-gradient-to-r from-indigo-500 via-sky-500 to-amber-500 transition-all duration-300" style="width: 1.78%;"></div>
+    </div>
+
+    <main class="card-scroll-stage p-5 bg-slate-100 flex flex-col" id="cardScrollBody">
+      <article id="mainCard" class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200/90 flex flex-col gap-4">
+        
+        <!-- Header Tag and Index Counter -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span id="badgeCategory" class="badge-pill bg-indigo-50 text-indigo-800 border border-indigo-200">
+              ❶ 核心詞族
+            </span>
+            <span id="badgeLevel" class="badge-pill bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">
+              LEVEL 1~5
+            </span>
+          </div>
+          <span id="cardIndexLabel" class="font-mono text-sm font-bold text-slate-400">01 / 56</span>
+        </div>
+
+        <!-- Vocabulary Hero Section with Pronunciation Trigger -->
+        <div class="bg-gradient-to-br from-slate-50 via-indigo-50/50 to-slate-50 rounded-2xl p-5 border border-slate-200/90">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+              <h1 id="vocabWord" class="font-en text-3xl sm:text-4xl font-black text-slate-900 tracking-tight break-words">
+                acceptant
+              </h1>
+              <div class="flex flex-wrap items-center gap-2.5 mt-1.5">
+                <span id="vocabPhonetic" class="font-mono text-slate-500 text-sm sm:text-base font-bold">/əkˈseptənt/</span>
+                <span class="text-slate-300 text-sm">•</span>
+                <span id="vocabSyllables" class="font-mono text-xs font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded border border-indigo-200">
+                  ac · cep · tant
+                </span>
+              </div>
+            </div>
+
+            <!-- Main Audio Button -->
+            <button id="pronounceMainBtn" onclick="speakCurrentWord()" class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-600/25 active:scale-95 transition-all shrink-0 hover:bg-indigo-700" title="點擊聆聽美式真人發音">
+              <i class="fa-solid fa-volume-high text-xl"></i>
+            </button>
+          </div>
+
+          <!-- Part of Speech & Meaning -->
+          <div class="mt-3.5 flex items-center gap-2.5 flex-wrap">
+            <span id="vocabPos" class="bg-indigo-700 text-white font-bold text-xs px-2 py-0.5 rounded shadow-xs font-mono">adj.</span>
+            <span id="vocabMeaning" class="text-slate-900 font-black text-xl sm:text-2xl leading-snug">容易接受的、願意接受的</span>
+          </div>
+        </div>
+
+        <!-- Dedicated Confusing Words Comparison Section -->
+        <div id="confusionComparisonBlock" class="bg-amber-50/90 border-2 border-amber-300 rounded-2xl p-4 flex flex-col gap-3 shadow-xs">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-amber-950 font-black text-sm">
+              <i class="fa-solid fa-code-compare text-amber-600 text-base"></i>
+              <span>⚡ 易混淆字秒記對決 (Confusing Words)</span>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-wider bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full font-mono">TOEIC TRAP</span>
+          </div>
+          <div id="confusionCardsContainer" class="flex flex-col gap-2.5">
+            <!-- Dynamic Injection -->
+          </div>
+        </div>
+
+        <!-- Memory Method Box -->
+        <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <div class="text-xs sm:text-sm text-slate-800 leading-relaxed flex-1">
+            <span class="font-bold block mb-0.5 text-slate-900" id="etymologyHeader">記憶法／字根拆解：</span>
+            <p id="etymologyContent" class="text-slate-600 text-xs sm:text-sm leading-relaxed">accept (接受) + -ant (形容詞字尾) ➔ 願意接受別人意見的態度。</p>
+          </div>
+        </div>
+
+        <!-- Collocations Box -->
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2 text-sm font-bold text-slate-800">
+            <i class="fa-solid fa-bullseye text-indigo-500 text-base"></i>
+            <span>多益必考搭配 (Collocations)</span>
+          </div>
+          <div id="collocationBox" class="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 text-xs sm:text-sm space-y-1.5 text-slate-800">
+            <!-- Dynamic Injection -->
+          </div>
+        </div>
+
+        <!-- Authoritative Sample Sentence -->
+        <div class="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">考題例句 EXAMPLE</span>
+            <button onclick="speakSentence()" class="text-xs text-indigo-600 hover:text-indigo-700 font-semibold flex items-center gap-1 active:scale-95 transition bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">
+              <i class="fa-solid fa-volume-low text-xs"></i> 聽例句朗讀
+            </button>
+          </div>
+          <p id="sentenceEnText" class="text-xs sm:text-sm font-medium text-slate-800 leading-relaxed">
+            It's said that the corporate leader has an acceptant mind.
+          </p>
+          <p id="sentenceZhText" class="text-xs text-slate-500 leading-normal">
+            據說那位公司領導人樂於接受別人的意見。
+          </p>
+        </div>
+
+        <!-- Word Family Group -->
+        <div id="familyBlock" class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-3.5 space-y-2">
+          <div class="flex items-center gap-2 text-sm font-bold text-indigo-900">
+            <i class="fa-solid fa-sitemap text-indigo-500 text-base"></i>
+            <span>詞族衍生與同源字 (Family)</span>
+          </div>
+          <div id="familyContainer" class="space-y-1.5 text-xs sm:text-sm">
+            <!-- Dynamic Injection -->
+          </div>
+        </div>
+
+        <!-- Generous Bottom Spacing Anchor -->
+        <div class="py-2 text-center text-[11px] text-slate-400 select-none">
+          • 向上滑動可瀏覽完整卡片內容 •
+        </div>
+      </article>
+    </main>
+
+    <!-- Bottom Persistent Control Bar (flex-shrink: 0, non-overlapping sibling) -->
+    <footer id="bottomNav" class="bg-white/95 backdrop-blur-md px-6 py-3.5 border-t border-slate-200/90 shrink-0 z-30 flex items-center justify-between gap-4 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
+      <button onclick="prevCard()" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition border border-slate-200">
+        <i class="fa-solid fa-chevron-left text-xs"></i>
+        <span>上一張</span>
+      </button>
+
+      <!-- Quick Pronounce Button -->
+      <button onclick="speakCurrentWord()" class="w-12 h-12 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-full flex items-center justify-center text-base shadow-xs active:scale-90 transition hover:bg-indigo-100 shrink-0" title="再次朗讀此單字">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+
+      <!-- Next Card Button -->
+      <button onclick="nextCard()" class="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition shadow-md shadow-indigo-600/25">
+        <span>下一張</span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+      </button>
+    </footer>
+
+    <!-- Directory Modal with Real-time Search -->
+    <div id="directoryModal" class="hidden absolute inset-0 bg-slate-950/80 z-50 backdrop-blur-xs flex flex-col justify-end">
+      <div class="bg-white rounded-t-3xl max-h-[85%] flex flex-col overflow-hidden shadow-2xl">
+        <div class="p-4 border-b border-slate-200 flex flex-col gap-3 shrink-0 bg-slate-50">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-indigo-500 text-base"></i>
+              <h3 class="font-bold text-slate-900 text-base">Day 2 單字目錄 (共 56 組完整收錄)</h3>
+            </div>
+            <button onclick="toggleModal(false)" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 flex items-center justify-center text-slate-600 text-sm">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <!-- Realtime Search Input -->
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="dirSearchInput" oninput="filterDirectoryList()" placeholder="搜尋單字、音標、中文或混淆字..." class="w-full bg-white border border-slate-300 rounded-xl pl-8 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 shadow-inner">
+          </div>
+        </div>
+        <div id="directoryListItems" class="overflow-y-auto p-4 space-y-2 card-scroll-stage flex-1">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function autoScaleViewport() {
+      const scaler = document.getElementById('viewportScaler');
+      const winW = window.innerWidth;
+      const winH = window.innerHeight;
+      const targetW = 720;
+      const targetH = 1280;
+      
+      const scaleW = winW / targetW;
+      const scaleH = winH / targetH;
+      const scale = Math.min(scaleW, scaleH);
+
+      scaler.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', autoScaleViewport);
+    window.addEventListener('orientationchange', autoScaleViewport);
+
+    // EXACT 56 VOCABULARY ITEMS FROM THE 4 PHOTOS
+    const vocabularyList = [
+      // ================= PHOTO 1: P. 016-017 (Items 1 - 13) =================
+      {
+        id: 1,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "acceptant",
+        phonetic: "/əkˈseptənt/",
+        syllables: "ac · cep · tant",
+        pos: "adj.",
+        meaning: "容易接受的、願意接受的",
+        etymologyHeader: "詞性延伸",
+        etymologyDesc: "accept (接受) + -ant (形容詞字尾) ➔ 願意接納他人意見的。",
+        comparison: {
+          confusedWith: "acceptable",
+          confusedPhonetic: "/əkˈseptəbl/",
+          confusedPos: "adj.",
+          confusedMeaning: "可接受的、尚可的",
+          mnemonic: "【形容詞辨析】acceptant 指『人的態度心態開放願意接納』；acceptable 指『方案或事物水準尚可/可被容忍接受』。"
+        },
+        collocations: [
+          "<b>an acceptant mind</b> 容易接納他人意見的開明胸懷",
+          "<b>recipient / open-minded</b> 願意接受建言者"
+        ],
+        sentenceEn: "It's said that the corporate leader has an acceptant mind.",
+        sentenceZh: "據說那位公司領導人樂於接受別人的意見。",
+        family: [
+          { word: "accept", syllables: "ac · cept", pos: "v.", meaning: "接受、承認" },
+          { word: "acceptance", syllables: "ac · cep · tance", pos: "n.", meaning: "接納、認可" }
+        ]
+      },
+      {
+        id: 2,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 1",
+        word: "accident",
+        phonetic: "/ˈæksɪdənt/",
+        syllables: "ac · ci · dent",
+        pos: "n.",
+        meaning: "事故、意外",
+        etymologyHeader: "片語高頻考點",
+        etymologyDesc: "by accident (偶然、無意中)；traffic accident (交通事故)。",
+        comparison: {
+          confusedWith: "incident",
+          confusedPhonetic: "/ˈɪnsɪdənt/",
+          confusedPos: "n.",
+          confusedMeaning: "事件、插曲、爭端",
+          mnemonic: "【事故 vs 事件】accident 強調『造成傷害/損失的意外車禍』；incident 多指『政治衝突、外交爭端或突發事件』。"
+        },
+        collocations: [
+          "<b>traffic accident</b> 交通事故",
+          "<b>accident insurance</b> 意外傷害保險"
+        ],
+        sentenceEn: "The president is deeply concerned about the traffic accident.",
+        sentenceZh: "董事長十分關心這起車禍事故。",
+        family: [
+          { word: "accidental", syllables: "ac · ci · den · tal", pos: "adj.", meaning: "意外的、偶然的" },
+          { word: "mishap", syllables: "mis · hap", pos: "n.", meaning: "小差錯、不幸事故" }
+        ]
+      },
+      {
+        id: 3,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 2",
+        word: "accord",
+        phonetic: "/əˈkɔːrd/",
+        syllables: "ac · cord",
+        pos: "v. / n.",
+        meaning: "符合、使一致；條約、協議",
+        etymologyHeader: "介系詞考點",
+        etymologyDesc: "不及物動詞 accord 常搭配 with，表示「與…言行相符/一致」。",
+        comparison: {
+          confusedWith: "afford",
+          confusedPhonetic: "/əˈfɔːrd/",
+          confusedPos: "v.",
+          confusedMeaning: "負擔得起、買得起、提供",
+          mnemonic: "【音形辨析】accord 含 cord (心靈/合音) ➔ 與協議『一致』；afford 指財務或時間上『負擔得起』(afford the cost)。"
+        },
+        collocations: [
+          "<b>accord with her words</b> 與她的言論完全相符",
+          "<b>in accordance with</b> 依照、根據 (介系詞片語)"
+        ],
+        sentenceEn: "The manager doesn't think the secretary's conduct accords with her words.",
+        sentenceZh: "經理認為秘書的言行不一致。",
+        family: [
+          { word: "accordance", syllables: "ac · cord · ance", pos: "n.", meaning: "一致、和諧" },
+          { word: "according", syllables: "ac · cord · ing", pos: "prep.", meaning: "依照、根據" }
+        ]
+      },
+      {
+        id: 4,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 2",
+        word: "account",
+        phonetic: "/əˈkaʊnt/",
+        syllables: "ac · count",
+        pos: "n. / v.",
+        meaning: "帳戶、帳目、理由；解釋",
+        etymologyHeader: "會計與常用片語",
+        etymologyDesc: "bank account (銀行帳戶)；take into account (將…列入考慮)；account for (解釋、佔比)。",
+        comparison: {
+          confusedWith: "amount",
+          confusedPhonetic: "/əˈmaʊnt/",
+          confusedPos: "n./v.",
+          confusedMeaning: "數量、總額；合計達",
+          mnemonic: "【字根記憶】account 是銀行『帳號或陳述報告』；amount 則是金錢與物質的『總量總數』。"
+        },
+        collocations: [
+          "<b>bank account</b> 銀行帳戶",
+          "<b>account for 30%</b> 佔了三成比例 / 為…提出合理解釋"
+        ],
+        sentenceEn: "The general secretary asked him to withdraw 3,000 dollars from the bank account.",
+        sentenceZh: "秘書長要求他從銀行帳戶裡提取三千美元。",
+        family: [
+          { word: "accountant", syllables: "ac · count · ant", pos: "n.", meaning: "會計師" },
+          { word: "accounting", syllables: "ac · count · ing", pos: "n.", meaning: "會計學、帳務" }
+        ]
+      },
+      {
+        id: 5,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 2",
+        word: "accountant",
+        phonetic: "/əˈkaʊntənt/",
+        syllables: "ac · coun · tant",
+        pos: "n.",
+        meaning: "會計師、會計人員",
+        etymologyHeader: "職務名詞字尾",
+        etymologyDesc: "account + -ant (職業人員) ➔ 掌管查帳之執業會計師。",
+        comparison: {
+          confusedWith: "consultant",
+          confusedPhonetic: "/kənˈsʌltənt/",
+          confusedPos: "n.",
+          confusedMeaning: "顧問、諮詢師",
+          mnemonic: "【職務區分】accountant 專職『記帳審計報稅』；consultant 提供戰略業務『顧問諮詢』。"
+        },
+        collocations: [
+          "<b>a chartered accountant</b> 特許執業會計師",
+          "<b>professional accountant</b> 專業會計師"
+        ],
+        sentenceEn: "A chartered accountant will come for an interview next Saturday.",
+        sentenceZh: "下週六將會有一名執業會計師前來參加面試。",
+        family: [
+          { word: "accountancy", syllables: "ac · coun · tan · cy", pos: "n.", meaning: "會計工作、會計學" }
+        ]
+      },
+      {
+        id: 6,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 2",
+        word: "accurate",
+        phonetic: "/ˈækjərət/",
+        syllables: "ac · cu · rate",
+        pos: "adj.",
+        meaning: "精確的、準確的",
+        etymologyHeader: "詞族派生",
+        etymologyDesc: "名詞為 accuracy；修飾 measurement、records 保持紀錄精確無誤。",
+        comparison: {
+          confusedWith: "precise",
+          confusedPhonetic: "/prɪˈsaɪs/",
+          confusedPos: "adj.",
+          confusedMeaning: "精密細緻的、明確的",
+          mnemonic: "【準確度對比】accurate 強調『數字符合真實事實無偏差』；precise 強調『儀器刻度分毫不差、細微嚴謹』。"
+        },
+        collocations: [
+          "<b>accurate records</b> 精確準確的記錄",
+          "<b>accurate measurement</b> 精確的測量"
+        ],
+        sentenceEn: "The new employee had no idea of the significance of keeping accurate records.",
+        sentenceZh: "這名新員工不知道持續精確記錄的重要性。",
+        family: [
+          { word: "accuracy", syllables: "ac · cu · ra · cy", pos: "n.", meaning: "正確度、精確性" },
+          { word: "accurately", syllables: "ac · cu · rate · ly", pos: "adv.", meaning: "準確無誤地" }
+        ]
+      },
+      {
+        id: 7,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 3",
+        word: "accuse",
+        phonetic: "/əˈkjuːz/",
+        syllables: "ac · cuse",
+        pos: "v.",
+        meaning: "指控、控告、譴責",
+        etymologyHeader: "法律法務句型",
+        etymologyDesc: "必考句型：accuse sb OF doing sth；被動態為 be accused of fraud。",
+        comparison: {
+          confusedWith: "charge",
+          confusedPhonetic: "/tʃɑːrdʒ/",
+          confusedPos: "v./n.",
+          confusedMeaning: "控告、起訴；收費",
+          mnemonic: "【介系詞考題必殺】accuse sb OF crime vs. charge sb WITH crime (指控罪名時介系詞完全不同！)。"
+        },
+        collocations: [
+          "<b>be accused of fraud</b> 被控告涉嫌詐欺罪",
+          "<b>accuse the chief accountant</b> 指控會計主管"
+        ],
+        sentenceEn: "Believe it or not, the chief accountant was accused of fraud.",
+        sentenceZh: "信不信由你，會計主管被指控涉嫌詐騙。",
+        family: [
+          { word: "accusation", syllables: "ac · cu · sa · tion", pos: "n.", meaning: "控告、指責" },
+          { word: "accuser", syllables: "ac · cus · er", pos: "n.", meaning: "原告、指控者" }
+        ]
+      },
+      {
+        id: 8,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 1",
+        word: "ache",
+        phonetic: "/eɪk/",
+        syllables: "ache",
+        pos: "n. / v.",
+        meaning: "疼痛；渴望",
+        etymologyHeader: "辦公病假名詞",
+        etymologyDesc: "常作複合字尾 (headache, stomachache)；動詞 ache for 表渴望眷戀。",
+        comparison: {
+          confusedWith: "pain",
+          confusedPhonetic: "/peɪn/",
+          confusedPos: "n./v.",
+          confusedMeaning: "痛苦、劇痛；使痛苦",
+          mnemonic: "【痛感差異】ache 是『持續不斷的隱隱作痛/酸痛』；pain 多指『突然劇烈的刺痛或身體受傷之痛』。"
+        },
+        collocations: [
+          "<b>stomachache</b> 肚子痛、胃痛",
+          "<b>ache for sympathy</b> 渴望同情"
+        ],
+        sentenceEn: "The manager had to put off the meeting because of stomachache.",
+        sentenceZh: "經理由於肚子痛而不得不推遲會議。",
+        family: [
+          { word: "toothache", syllables: "tooth · ache", pos: "n.", meaning: "牙痛" }
+        ]
+      },
+      {
+        id: 9,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 2",
+        word: "achieve",
+        phonetic: "/əˈtʃiːv/",
+        syllables: "a · chieve",
+        pos: "v.",
+        meaning: "取得、獲得、實現",
+        etymologyHeader: "目標達成動詞",
+        etymologyDesc: "通常接 goals, targets, aims 等抽象名詞；同義詞為 accomplish / realize。",
+        comparison: {
+          confusedWith: "receive",
+          confusedPhonetic: "/rɪˈsiːv/",
+          confusedPos: "v.",
+          confusedMeaning: "收到、接收 (客觀收到信件或款項)",
+          mnemonic: "【主動 vs 被動】achieve 是『付出汗水努力後主動實現目標』；receive 僅指『客觀被動地收到來信/禮物』。"
+        },
+        collocations: [
+          "<b>achieve his goals</b> 實現他的既定目標",
+          "<b>achieve success</b> 獲得成功"
+        ],
+        sentenceEn: "Jack would achieve his goals if he were elected as the vice president.",
+        sentenceZh: "如果當選副總裁，傑克將會實現自己的目標。",
+        family: [
+          { word: "achievement", syllables: "a · chieve · ment", pos: "n.", meaning: "成就、達到" },
+          { word: "achievable", syllables: "a · chieve · a · ble", pos: "adj.", meaning: "可達成的" }
+        ]
+      },
+      {
+        id: 10,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 3",
+        word: "achievement",
+        phonetic: "/əˈtʃiːvmənt/",
+        syllables: "a · chieve · ment",
+        pos: "n.",
+        meaning: "成就、完成、達到",
+        etymologyHeader: "名詞衍生",
+        etymologyDesc: "achieve + -ment ➔ 表成果或達到境界的名詞；如 academic achievement。",
+        comparison: {
+          confusedWith: "accomplishment",
+          confusedPhonetic: "/əˈkɑːmplɪʃmənt/",
+          confusedPos: "n.",
+          confusedMeaning: "才藝技能、圓滿完成",
+          mnemonic: "【成就辨析】achievement 偏向『打破紀錄的大功績/重大里程碑』；accomplishment 側重『完成艱鉅專案的成就感與個人才藝』。"
+        },
+        collocations: [
+          "<b>academic achievement</b> 學業成就",
+          "<b>speak highly of the achievement</b> 高度讚賞所取得的成就"
+        ],
+        sentenceEn: "The president spoke highly of the achievement that the employee had achieved.",
+        sentenceZh: "董事長大力讚賞了這名員工所取得的成就。",
+        family: [
+          { word: "achieve", syllables: "a · chieve", pos: "v.", meaning: "取得、達成" }
+        ]
+      },
+      {
+        id: 11,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 3",
+        word: "across",
+        phonetic: "/əˈkrɔːs/",
+        syllables: "a · cross",
+        pos: "prep. / adv.",
+        meaning: "穿過、跨越、橫過",
+        etymologyHeader: "詞性文法重點",
+        etymologyDesc: "介系詞或副詞，前面必須有動作動詞搭配：walk across the road。",
+        comparison: {
+          confusedWith: "cross",
+          confusedPhonetic: "/krɔːs/",
+          confusedPos: "v./n.",
+          confusedMeaning: "穿越、橫越 (動詞)；十字架",
+          mnemonic: "【詞性大陷阱】cross the road (cross 是及物動詞直接接受詞) vs. walk ACROSS the road (across 是介系詞前方需有 walk)。"
+        },
+        collocations: [
+          "<b>walk across that road</b> 步行橫越那條馬路",
+          "<b>go across</b> 穿過、走過"
+        ],
+        sentenceEn: "The secretary saw the general manager walk across that road.",
+        sentenceZh: "秘書看到總經理走過了馬路。",
+        family: [
+          { word: "cross", syllables: "cross", pos: "v.", meaning: "穿過、交叉" }
+        ]
+      },
+      {
+        id: 12,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "act",
+        phonetic: "/ækt/",
+        syllables: "act",
+        pos: "v. / n.",
+        meaning: "行動、扮演、充當；行為、法案",
+        etymologyHeader: "多益多義片語",
+        etymologyDesc: "act as (擔任、充當)；act in (扮演)；act on (依…行事)。",
+        comparison: {
+          confusedWith: "react",
+          confusedPhonetic: "/riˈækt/",
+          confusedPos: "v.",
+          confusedMeaning: "起反應、作出回應",
+          mnemonic: "【主動 vs 回應】act 是『主動採取行動』；react (re- 回應) 是『受到外界刺激後做出反應』(react to market changes)。"
+        },
+        collocations: [
+          "<b>think carefully before I acted</b> 在我行動之前慎重考慮",
+          "<b>act as a manager</b> 充當代理經理職務"
+        ],
+        sentenceEn: "The boss hoped that I could think carefully before I acted.",
+        sentenceZh: "老闆希望我在行動之前，能夠好好考慮。",
+        family: [
+          { word: "action", syllables: "ac · tion", pos: "n.", meaning: "行動、活動" },
+          { word: "actor", syllables: "ac · tor", pos: "n.", meaning: "演員" }
+        ]
+      },
+      {
+        id: 13,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 2",
+        word: "action",
+        phonetic: "/ˈækʃn/",
+        syllables: "ac · tion",
+        pos: "n.",
+        meaning: "行動、活動",
+        etymologyHeader: "諺語與商務高頻",
+        etymologyDesc: "take action (採取行動)；put into action (付諸實施)；Actions speak louder than words。",
+        comparison: {
+          confusedWith: "activity",
+          confusedPhonetic: "/ækˈtɪvəti/",
+          confusedPos: "n.",
+          confusedMeaning: "活動 (如戶外活動、商業促銷活動)",
+          mnemonic: "【不可數 vs 可數】action 通常為抽象不可數『果斷的行動決策』；activity 常用複數『具體舉辦的文娛/商務活動』。"
+        },
+        collocations: [
+          "<b>actions speak louder than words</b> 行動勝於空談 (事實勝於雄辯)",
+          "<b>take action</b> 採取行動"
+        ],
+        sentenceEn: "The principal emphasizes at the meeting that actions speak louder than words.",
+        sentenceZh: "負責人在會議上強調，行動勝於空談。",
+        family: [
+          { word: "active", syllables: "ac · tive", pos: "adj.", meaning: "積極活躍的" }
+        ]
+      },
+
+      // ================= PHOTO 2: P. 144-145 (Items 14 - 27) =================
+      {
+        id: 14,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "accelerate",
+        phonetic: "/əkˈseləreɪt/",
+        syllables: "ac · cel · e · rate",
+        pos: "v.",
+        meaning: "加快、促進",
+        etymologyHeader: "字根拆解",
+        etymologyDesc: "ac- (朝向) + celer (快速) + -ate ➔ 加快腳步；反義字為 decelerate (減速)。",
+        comparison: {
+          confusedWith: "accumulate",
+          confusedPhonetic: "/əˈkjuːmjəleɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "積累、堆積",
+          mnemonic: "【速度 vs 數量】accelerate 是『踩油門讓速度加快』；accumulate (cumul 堆疊) 是『讓數量逐漸堆高累積』。"
+        },
+        collocations: [
+          "<b>accelerate the development of the company</b> 加快公司發展進程",
+          "<b>quicken / speed up</b> 加快"
+        ],
+        sentenceEn: "This advanced technology accelerates the development of our company.",
+        sentenceZh: "這項先進技術加快了本公司的發展。",
+        family: [
+          { word: "acceleration", syllables: "ac · cel · e · ra · tion", pos: "n.", meaning: "加速" }
+        ]
+      },
+      {
+        id: 15,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 2",
+        word: "acceptable",
+        phonetic: "/əkˈseptəbl/",
+        syllables: "ac · cept · a · ble",
+        pos: "adj.",
+        meaning: "可接受的",
+        etymologyHeader: "句型搭配",
+        etymologyDesc: "常用結構：It is acceptable to + VR (做某事是可以被接受的)。",
+        comparison: {
+          confusedWith: "accepted",
+          confusedPhonetic: "/əkˈseptɪd/",
+          confusedPos: "adj.",
+          confusedMeaning: "公認的、已被普遍接受的",
+          mnemonic: "【字尾微辨】acceptable 含有 -able ➔『能力上可被接受/合格』；accepted 指『傳統或事實上已被普遍承認認可』。"
+        },
+        collocations: [
+          "<b>acceptable to work extra time occasionally</b> 偶爾加班是可以被接受的",
+          "<b>tolerable / reasonable</b> 可容忍合宜的"
+        ],
+        sentenceEn: "It is acceptable to work extra time occasionally.",
+        sentenceZh: "偶爾加班是可以接受的。",
+        family: [
+          { word: "accept", syllables: "ac · cept", pos: "v.", meaning: "接受" }
+        ]
+      },
+      {
+        id: 16,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 3",
+        word: "acceptance",
+        phonetic: "/əkˈseptəns/",
+        syllables: "ac · cep · tance",
+        pos: "n.",
+        meaning: "接受、接納",
+        etymologyHeader: "名詞構詞",
+        etymologyDesc: "動詞 accept + 名詞字尾 -ance；gain wide acceptance 獲得廣泛認可。",
+        comparison: {
+          confusedWith: "admission",
+          confusedPhonetic: "/ədˈmɪʃn/",
+          confusedPos: "n.",
+          confusedMeaning: "准許進入、入場許可、供認",
+          mnemonic: "【認可 vs 准入】acceptance 是大眾『心靈上認可接納新觀念』；admission 是『門票資格或學校機構准許入學進入』。"
+        },
+        collocations: [
+          "<b>gained wide acceptance</b> 獲得了廣泛的認可",
+          "<b>letter of acceptance</b> 錄取通知書 / 承兌信函"
+        ],
+        sentenceEn: "It's said that this research has gained wide acceptance.",
+        sentenceZh: "據說，這項研究已經獲得了廣泛的認可。",
+        family: [
+          { word: "approval", syllables: "ap · prov · al", pos: "n.", meaning: "核准、贊同" }
+        ]
+      },
+      {
+        id: 17,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 4",
+        word: "access",
+        phonetic: "/ˈækses/",
+        syllables: "ac · cess",
+        pos: "n. / v.",
+        meaning: "進入、使用權；使用、存取",
+        etymologyHeader: "多益極高頻片語",
+        etymologyDesc: "have access to (可以接觸、有權使用)；gain access to (獲得進入許可)。",
+        comparison: {
+          confusedWith: "assess",
+          confusedPhonetic: "/əˈses/",
+          confusedPos: "v.",
+          confusedMeaning: "評估、估價、評定",
+          mnemonic: "【音形雙胞胎】access (cc 雙寫 ➔ 通道/存取權限)；assess (ss 雙寫 ➔ 評定資產/評估績效)。"
+        },
+        collocations: [
+          "<b>have access to those technicians</b> 能夠接觸那些技術人員",
+          "<b>internet access</b> 網際網路連線存取"
+        ],
+        sentenceEn: "It is not easy to have access to those technicians.",
+        sentenceZh: "要接觸那些技術人員並不容易。",
+        family: [
+          { word: "accessible", syllables: "ac · ces · si · ble", pos: "adj.", meaning: "易接近的、可進入的" }
+        ]
+      },
+      {
+        id: 18,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 5",
+        word: "accidental",
+        phonetic: "/ˌæksɪˈdentl/",
+        syllables: "ac · ci · den · tal",
+        pos: "adj.",
+        meaning: "意外的、偶然的",
+        etymologyHeader: "形容詞構詞",
+        etymologyDesc: "accident (事故意外) + -al (形容詞字尾) ➔ 非故意發生的。",
+        comparison: {
+          confusedWith: "incidental",
+          confusedPhonetic: "/ˌɪnsɪˈdentl/",
+          confusedPos: "adj.",
+          confusedMeaning: "附帶的、非主要的 (如附帶費用)",
+          mnemonic: "【意外 vs 附帶】accidental error 指『純屬無心意外的偶發差錯』；incidental expenses 指出差行程中的『雜支附帶開銷』。"
+        },
+        collocations: [
+          "<b>an accidental error</b> 一個偶然意外的誤差",
+          "<b>accidental death</b> 意外身亡"
+        ],
+        sentenceEn: "The researcher makes certain that it is only an accidental error.",
+        sentenceZh: "研究人員確保這只是一個偶然誤差。",
+        family: [
+          { word: "accident", syllables: "ac · ci · dent", pos: "n.", meaning: "意外事故" },
+          { word: "accidentally", syllables: "ac · ci · den · tal · ly", pos: "adv.", meaning: "偶然地、意外地" }
+        ]
+      },
+      {
+        id: 19,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 1",
+        word: "accompany",
+        phonetic: "/əˈkʌmpəni/",
+        syllables: "ac · com · pa · ny",
+        pos: "v.",
+        meaning: "陪伴、伴隨、伴奏",
+        etymologyHeader: "字根拆解",
+        etymologyDesc: "ac- (朝向) + company (夥伴同行) ➔ 作為同伴陪伴出席晚宴。",
+        comparison: {
+          confusedWith: "company",
+          confusedPhonetic: "/ˈkʌmpəni/",
+          confusedPos: "n.",
+          confusedMeaning: "公司；陪伴、伴侶",
+          mnemonic: "【動名詞辨析】accompany 是『陪同出席』(及物動詞)；keep sb company 是名詞用法『陪伴某人』。"
+        },
+        collocations: [
+          "<b>accompany the manager to the banquet</b> 陪同經理出席宴會",
+          "<b>accompanied by</b> 由…陪同/伴隨"
+        ],
+        sentenceEn: "I am going to accompany the manager to the banquet.",
+        sentenceZh: "我明天要陪同經理參加宴會。",
+        family: [
+          { word: "companion", syllables: "com · pan · ion", pos: "n.", meaning: "同伴" }
+        ]
+      },
+      {
+        id: 20,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 2",
+        word: "accomplish",
+        phonetic: "/əˈkɑːmplɪʃ/",
+        syllables: "ac · com · plish",
+        pos: "v.",
+        meaning: "完成、實現",
+        etymologyHeader: "商務專案詞彙",
+        etymologyDesc: "強調依計畫如期圓滿完成 (accomplish on schedule)；同義詞 achieve / fulfill。",
+        comparison: {
+          confusedWith: "accumulate",
+          confusedPhonetic: "/əˈkjuːmjəleɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "堆積、累積",
+          mnemonic: "【音形切莫混】accomplish (complete 完成任務)；accumulate (cumul 堆聚成堆 ➔ 累積財富)。"
+        },
+        collocations: [
+          "<b>accomplish that task on schedule</b> 如期圓滿完成該項任務",
+          "<b>accomplishable</b> 可實現完成的"
+        ],
+        sentenceEn: "I am afraid he can't accomplish that task on schedule.",
+        sentenceZh: "恐怕他無法按時完成那項任務了。",
+        family: [
+          { word: "accomplishment", syllables: "ac · com · plish · ment", pos: "n.", meaning: "成就、技能" }
+        ]
+      },
+      {
+        id: 21,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 3",
+        word: "according",
+        phonetic: "/əˈkɔːrdɪŋ/",
+        syllables: "ac · cord · ing",
+        pos: "prep.",
+        meaning: "相符的、依照",
+        etymologyHeader: "介系詞固定片語",
+        etymologyDesc: "固定搭配 according to + 名詞/代名詞，意指「按照規定/依據計畫」。",
+        comparison: {
+          confusedWith: "accordingly",
+          confusedPhonetic: "/əˈkɔːrdɪŋli/",
+          confusedPos: "adv.",
+          confusedMeaning: "相應地、因此、從而",
+          mnemonic: "【介系詞 vs 副詞】according TO + N (依照某依據)；accordingly 作副詞放句尾或句首 (相應地調整 action accordingly)。"
+        },
+        collocations: [
+          "<b>according to the plan</b> 按照既定計畫",
+          "<b>consonant</b> 符合一致的"
+        ],
+        sentenceEn: "You should take actions according to the plan.",
+        sentenceZh: "你應該按照計畫來採取行動。",
+        family: [
+          { word: "accordingly", syllables: "ac · cord · ing · ly", pos: "adv.", meaning: "相應地、照著" }
+        ]
+      },
+      {
+        id: 22,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 3",
+        word: "accumulate",
+        phonetic: "/əˈkjuːmjəleɪt/",
+        syllables: "ac · cu · mu · late",
+        pos: "v.",
+        meaning: "積累、堆積",
+        etymologyHeader: "多益閱讀高頻",
+        etymologyDesc: "雨水積水或貨品庫存累積；不及物時常接介系詞 to 表示累積達某高度。",
+        comparison: {
+          confusedWith: "accommodate",
+          confusedPhonetic: "/əˈkɑːmədeɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "容納、提供住宿與設備",
+          mnemonic: "【會展 vs 倉儲】accumulate in warehouse (倉庫堆積貨物/雨水) vs. accommodate 500 guests (飯店容納500名賓客)。"
+        },
+        collocations: [
+          "<b>accumulated to ten centimeters</b> 累積達到十公分高",
+          "<b>accumulate wealth</b> 累積財富"
+        ],
+        sentenceEn: "The rainwater in the warehouse has accumulated to ten centimeters.",
+        sentenceZh: "倉庫裡的雨水已經積了十公分高了。",
+        family: [
+          { word: "accumulation", syllables: "ac · cu · mu · la · tion", pos: "n.", meaning: "累積、堆積物" }
+        ]
+      },
+      {
+        id: 23,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 4",
+        word: "acknowledge",
+        phonetic: "/əkˈnɑːlɪdʒ/",
+        syllables: "ac · knowl · edge",
+        pos: "v.",
+        meaning: "承認、答謝、報償",
+        etymologyHeader: "商務書信核心",
+        etymologyDesc: "acknowledge that (承認某事)；acknowledge receipt of (確認收到信件或貨款)。",
+        comparison: {
+          confusedWith: "knowledge",
+          confusedPhonetic: "/ˈnɑːlɪdʒ/",
+          confusedPos: "n.",
+          confusedMeaning: "知識、學問",
+          mnemonic: "【動詞加頭】knowledge 是名詞知識；加上 ac- 變成動詞 acknowledge ➔『正式確認承認/簽收致謝信函』。"
+        },
+        collocations: [
+          "<b>acknowledge that he has done something wrong</b> 承認自己做錯了事",
+          "<b>acknowledge receipt</b> 確認收到款項信件"
+        ],
+        sentenceEn: "The new employee acknowledges that he has done something wrong.",
+        sentenceZh: "那名新員工承認自己做錯了事。",
+        family: [
+          { word: "acknowledgement", syllables: "ac · knowl · edge · ment", pos: "n.", meaning: "承認、感謝信" }
+        ]
+      },
+      {
+        id: 24,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 4",
+        word: "acquaint",
+        phonetic: "/əˈkweɪnt/",
+        syllables: "ac · quaint",
+        pos: "v.",
+        meaning: "使了解、使認識、使熟悉",
+        etymologyHeader: "及物動詞片語",
+        etymologyDesc: "常用被動或反身：be acquainted with / acquaint oneself with (使自己熟悉企業文化)。",
+        comparison: {
+          confusedWith: "quaint",
+          confusedPhonetic: "/kweɪnt/",
+          confusedPos: "adj.",
+          confusedMeaning: "古雅別緻的、古怪奇特的",
+          mnemonic: "【詞性字義天差】quaint 是形容詞『古色古香的古鎮街道』；acquaint 是動詞『使人了解熟悉人脈與環境』。"
+        },
+        collocations: [
+          "<b>acquainted with the corporate culture</b> 熟悉了解公司的企業文化",
+          "<b>acquaint sb with sth</b> 使某人知悉某事"
+        ],
+        sentenceEn: "I'm sorry that I am not acquainted with the corporate culture.",
+        sentenceZh: "抱歉，我對公司文化不太了解。",
+        family: [
+          { word: "acquaintance", syllables: "ac · quaint · ance", pos: "n.", meaning: "熟人、認識了解" }
+        ]
+      },
+      {
+        id: 25,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 5",
+        word: "acquire",
+        phonetic: "/əˈkwaɪər/",
+        syllables: "ac · quire",
+        pos: "v.",
+        meaning: "取得、獲得、學到",
+        etymologyHeader: "多益併購與習得",
+        etymologyDesc: "及物動詞；多益指取得專利、習得外語、或企業併購 (acquire a rival firm)。",
+        comparison: {
+          confusedWith: "require",
+          confusedPhonetic: "/rɪˈkwaɪər/",
+          confusedPos: "v.",
+          confusedMeaning: "需要、要求 (規定)",
+          mnemonic: "【求索對比】acquire (ac- 朝向) ➔『努力獲得買下』；require (re- 再三) ➔『法規要求需要』。"
+        },
+        collocations: [
+          "<b>acquire an interest</b> 產生濃厚興趣",
+          "<b>acquire a company</b> 收購併購一家公司"
+        ],
+        sentenceEn: "The principal acquires an interest for this anonymous letter.",
+        sentenceZh: "負責人對這封匿名信很感興趣。",
+        family: [
+          { word: "acquisition", syllables: "ac · qui · si · tion", pos: "n.", meaning: "收購、獲得" }
+        ]
+      },
+      {
+        id: 26,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 5",
+        word: "activate",
+        phonetic: "/ˈæktɪveɪt/",
+        syllables: "ac · ti · vate",
+        pos: "v.",
+        meaning: "刺激、使活潑、啟動",
+        etymologyHeader: "系統啟動名詞",
+        etymologyDesc: "及物動詞；用於啟動系統追蹤器 (activate tracker) 或信用卡開卡啟用。",
+        comparison: {
+          confusedWith: "motivate",
+          confusedPhonetic: "/ˈmoʊtɪveɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "激勵、驅使 (人)",
+          mnemonic: "【機器 vs 員工】activate this device (啟動裝置機器)；motivate employees (激發員工士氣動機)。"
+        },
+        collocations: [
+          "<b>activate this tracker</b> 啟動這個追蹤器",
+          "<b>activate an account</b> 啟用帳號"
+        ],
+        sentenceEn: "The researcher told him how to activate this tracker.",
+        sentenceZh: "研究人員告訴他如何啟動這個追蹤器。",
+        family: [
+          { word: "activation", syllables: "ac · ti · va · tion", pos: "n.", meaning: "活化、啟用" }
+        ]
+      },
+      {
+        id: 27,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 5",
+        word: "acute",
+        phonetic: "/əˈkjuːt/",
+        syllables: "a · cute",
+        pos: "adj.",
+        meaning: "嚴重的、激烈的、敏銳的、急性的",
+        etymologyHeader: "資源匱乏考點",
+        etymologyDesc: "修飾資源短缺 (acute shortage)；或醫學急症急性病痛 (acute pain)。",
+        comparison: {
+          confusedWith: "chronic",
+          confusedPhonetic: "/ˈkrɑːnɪk/",
+          confusedPos: "adj.",
+          confusedMeaning: "慢性的、長期的、習慣性的",
+          mnemonic: "【醫學相反詞】acute (突發急性的劇痛/急迫危機) vs. chronic (拖了數月數年的慢性病/長期失業)。"
+        },
+        collocations: [
+          "<b>an acute shortage of paper</b> 紙張嚴重短缺匱乏",
+          "<b>acute angle</b> 銳角"
+        ],
+        sentenceEn: "There was an acute shortage of paper in the smaller office.",
+        sentenceZh: "那個比較小的辦公室裡的紙張嚴重短缺。",
+        family: [
+          { word: "acutely", syllables: "a · cute · ly", pos: "adv.", meaning: "敏銳地、強烈地" }
+        ]
+      },
+
+      // ================= PHOTO 3: P. 246-247 (Items 28 - 42) =================
+      {
+        id: 28,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "administer",
+        phonetic: "/ədˈmɪnɪstər/",
+        syllables: "ad · min · is · ter",
+        pos: "v.",
+        meaning: "管理、執行、給予",
+        etymologyHeader: "及物與不及物",
+        etymologyDesc: "administer upon/to (管理照顧)；administer justice (執法實施正義)。",
+        comparison: {
+          confusedWith: "minister",
+          confusedPhonetic: "/ˈmɪnɪstər/",
+          confusedPos: "n./v.",
+          confusedMeaning: "部長、牧師；服侍",
+          mnemonic: "【前綴加強】minister 是內閣部長；加上 ad- (朝向施作) 變成 administer ➔ 動詞『統籌管理、給予藥物』。"
+        },
+        collocations: [
+          "<b>administer upon a large corporation</b> 管理經營大型企業跨國公司",
+          "<b>administer justice</b> 執法、執行審判"
+        ],
+        sentenceEn: "To administer upon a large corporation needs brains and energy.",
+        sentenceZh: "管理一家大公司需要智慧和精力。",
+        family: [
+          { word: "administration", syllables: "ad · min · is · tra · tion", pos: "n.", meaning: "管理、行政" }
+        ]
+      },
+      {
+        id: 29,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 2",
+        word: "administrate",
+        phonetic: "/ədˈmɪnɪstreɪt/",
+        syllables: "ad · min · is · trate",
+        pos: "v.",
+        meaning: "管理、實施、經營",
+        etymologyHeader: "及物動詞形式",
+        etymologyDesc: "administrate our own internal affairs (管理公司內部事務)；同義於 administer。",
+        comparison: {
+          confusedWith: "demonstrate",
+          confusedPhonetic: "/ˈdemənstreɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "示範、證明、遊行示威",
+          mnemonic: "【尾綴相似】administrate 是『企業行政管理經營』；demonstrate 是『示範產品功能或證明論點』。"
+        },
+        collocations: [
+          "<b>administrate our own internal affairs</b> 管理我們自己的內部事務",
+          "<b>conduct / manage</b> 經營管理"
+        ],
+        sentenceEn: "The boss said we have the right to administrate our own internal affairs.",
+        sentenceZh: "老闆說，我們有權力管理自己的內部事務。",
+        family: [
+          { word: "administrator", syllables: "ad · min · is · tra · tor", pos: "n.", meaning: "行政管理人員" }
+        ]
+      },
+      {
+        id: 30,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 3",
+        word: "administration",
+        phonetic: "/ədˌmɪnɪˈstreɪʃn/",
+        syllables: "ad · min · is · tra · tion",
+        pos: "n.",
+        meaning: "管理、行政、實施",
+        etymologyHeader: "MBA 與行政部門",
+        etymologyDesc: "business administration (企業管理 MBA)；in charge of administration (負責行政)。",
+        comparison: {
+          confusedWith: "admiration",
+          confusedPhonetic: "/ˌædməˈreɪʃn/",
+          confusedPos: "n.",
+          confusedMeaning: "欽佩、讚賞",
+          mnemonic: "【音形雙胞胎】administration (minister 行政管理)；admiration (admire 讚揚欽佩)。"
+        },
+        collocations: [
+          "<b>in charge of the administration</b> 負責公司整體的行政管理事務",
+          "<b>business administration</b> 企業管理"
+        ],
+        sentenceEn: "The boss's wife was in charge of the administration of our company last year.",
+        sentenceZh: "去年，老闆的妻子負責公司的行政工作。",
+        family: [
+          { word: "administrative", syllables: "ad · min · is · tra · tive", pos: "adj.", meaning: "行政的" }
+        ]
+      },
+      {
+        id: 31,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 4",
+        word: "administrator",
+        phonetic: "/ədˈmɪnɪstreɪtər/",
+        syllables: "ad · min · is · tra · tor",
+        pos: "n.",
+        meaning: "管理人、行政官",
+        etymologyHeader: "職場職銜名詞",
+        etymologyDesc: "network administrator (網路系統管理員)；database administrator (DBA)。",
+        comparison: {
+          confusedWith: "administrative",
+          confusedPhonetic: "/ədˈmɪnɪstreɪtɪv/",
+          confusedPos: "adj.",
+          confusedMeaning: "行政上的、管理的",
+          mnemonic: "【人與形容詞】字尾 -or 代表負責行政的『管理主管』；字尾 -ive 代表『行政事務 administrative duties』。"
+        },
+        collocations: [
+          "<b>network administrator</b> 網路系統管理員",
+          "<b>supervisor / executive</b> 主管主管人"
+        ],
+        sentenceEn: "It's regrettable that the administrator died from a car accident last night.",
+        sentenceZh: "很遺憾，這個管理人員昨晚死於一場車禍。",
+        family: [
+          { word: "administration", syllables: "ad · min · is · tra · tion", pos: "n.", meaning: "行政管理" }
+        ]
+      },
+      {
+        id: 32,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 5",
+        word: "adorn",
+        phonetic: "/əˈdɔːrn/",
+        syllables: "a · dorn",
+        pos: "v.",
+        meaning: "裝飾、使生色",
+        etymologyHeader: "及物動詞片語",
+        etymologyDesc: "adorn the office with paintings (用畫作裝飾辦公室)；adornment 為其名詞。",
+        comparison: {
+          confusedWith: "adore",
+          confusedPhonetic: "/əˈdɔːr/",
+          confusedPos: "v.",
+          confusedMeaning: "崇拜、愛慕、極其喜愛",
+          mnemonic: "【音近微異】adorn 帶有 n ➔ 裝飾裝點房間環境；adore 無 n ➔ 內心深處崇拜愛慕某人。"
+        },
+        collocations: [
+          "<b>adorn the office with paintings</b> 用一些名畫來裝潢點綴辦公室空間",
+          "<b>adorn oneself with</b> 佩戴首飾打扮"
+        ],
+        sentenceEn: "I plan to adorn the office with some paintings.",
+        sentenceZh: "我打算用一些畫來裝潢辦公室。",
+        family: [
+          { word: "adornment", syllables: "a · dorn · ment", pos: "n.", meaning: "裝飾品、裝潢" }
+        ]
+      },
+      {
+        id: 33,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "advanced",
+        phonetic: "/ədˈvænst/",
+        syllables: "ad · vanced",
+        pos: "adj.",
+        meaning: "先進的、高級的",
+        etymologyHeader: "高科技與年資",
+        etymologyDesc: "advanced technology (高新技術)；advanced worker (資深骨幹員工)。",
+        comparison: {
+          confusedWith: "advantage",
+          confusedPhonetic: "/ədˈvæntɪdʒ/",
+          confusedPos: "n.",
+          confusedMeaning: "優勢、有利條件",
+          mnemonic: "【形容詞 vs 名詞】advanced technology (先進科技) vs. competitive advantage (競爭優勢)。"
+        },
+        collocations: [
+          "<b>advanced worker</b> 高級資深骨幹員工",
+          "<b>advanced technology</b> 先進高新技術"
+        ],
+        sentenceEn: "Why did the advanced worker resign?",
+        sentenceZh: "那個高級職員為什麼辭職了？",
+        family: [
+          { word: "advance", syllables: "ad · vance", pos: "n./v.", meaning: "前進、進展" }
+        ]
+      },
+      {
+        id: 34,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 2",
+        word: "advocate",
+        phonetic: "/ˈædvəkeɪt/",
+        syllables: "ad · vo · cate",
+        pos: "n. / v.",
+        meaning: "提倡者、支持者；主張、提倡",
+        etymologyHeader: "多益習語",
+        etymologyDesc: "play devil's advocate 意指「故唱反調、故意持反對意見以檢驗論點」。",
+        comparison: {
+          confusedWith: "evoke",
+          confusedPhonetic: "/ɪˈvoʊk/",
+          confusedPos: "v.",
+          confusedMeaning: "喚起、引起 (回憶或情感)",
+          mnemonic: "【同字根 voc 發聲】advocate (ad- 朝向 ➔ 大聲提倡政策主張)；evoke (e- 向外 ➔ 喚起鄉愁情感)。"
+        },
+        collocations: [
+          "<b>advocate reforming the economic system</b> 主張改良經濟體制",
+          "<b>devil's advocate</b> 故唱反調的人"
+        ],
+        sentenceEn: "All the citizens advocate reforming the economic system right now.",
+        sentenceZh: "所有市民都主張立刻改良經濟制度。",
+        family: [
+          { word: "advocacy", syllables: "ad · vo · ca · cy", pos: "n.", meaning: "擁護、提倡" }
+        ]
+      },
+      {
+        id: 35,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 3",
+        word: "affection",
+        phonetic: "/əˈfekʃn/",
+        syllables: "af · fec · tion",
+        pos: "n.",
+        meaning: "喜愛、感情、感染、影響",
+        etymologyHeader: "職場向心力",
+        etymologyDesc: "have a great affection for (對…懷有深厚感情)；亦可指病痛感染。",
+        comparison: {
+          confusedWith: "affectation",
+          confusedPhonetic: "/ˌæfekˈteɪʃn/",
+          confusedPos: "n.",
+          confusedMeaning: "做作、虛偽、裝模作樣",
+          mnemonic: "【真情 vs 做作】affection 是『真摯發自內心的喜愛情感』；affectation 是『刻意裝出來的虛偽做作』。"
+        },
+        collocations: [
+          "<b>have a great affection for the new manager</b> 員工們很喜歡愛戴新任經理",
+          "<b>rheumatic affection</b> 風濕病感染"
+        ],
+        sentenceEn: "The employees have a great affection for the new manager.",
+        sentenceZh: "員工們很喜歡新任經理 (對新經理很有感情)。",
+        family: [
+          { word: "affectionate", syllables: "af · fec · tion · ate", pos: "adj.", meaning: "深情的、溫柔的" }
+        ]
+      },
+      {
+        id: 36,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 4",
+        word: "affirm",
+        phonetic: "/əˈfɜːrm/",
+        syllables: "af · firm",
+        pos: "v.",
+        meaning: "肯定、斷言、確認",
+        etymologyHeader: "及物動詞確認",
+        etymologyDesc: "affirm that + 子句；affirm one's loyalty to (宣誓忠誠)。",
+        comparison: {
+          confusedWith: "confirm",
+          confusedPhonetic: "/kənˈfɜːrm/",
+          confusedPos: "v.",
+          confusedMeaning: "證實、確認 (預約或事實)",
+          mnemonic: "【肯定 vs 證實】affirm 側重『個人態度堅定斷言/肯定宣稱』；confirm 側重『核對事實/確認機票訂位』。"
+        },
+        collocations: [
+          "<b>affirm that the young man will be hired</b> 肯定那個年輕人會被錄用",
+          "<b>affirm one's loyalty</b> 誓言忠誠"
+        ],
+        sentenceEn: "I can affirm that the clever young man will be hired.",
+        sentenceZh: "我敢肯定，那個聰明的年輕小夥子會被錄用。",
+        family: [
+          { word: "affirmative", syllables: "af · firm · a · tive", pos: "adj.", meaning: "肯定的" },
+          { word: "affirmation", syllables: "af · fir · ma · tion", pos: "n.", meaning: "肯定、證實" }
+        ]
+      },
+      {
+        id: 37,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 5",
+        word: "agency",
+        phonetic: "/ˈeɪdʒənsi/",
+        syllables: "a · gen · cy",
+        pos: "n.",
+        meaning: "經銷商、代理機構、仲介",
+        etymologyHeader: "商業機構名詞",
+        etymologyDesc: "travel agency (旅行社)；advertising agency (廣告代理商)；agency fees (仲介佣金)。",
+        comparison: {
+          confusedWith: "urgency",
+          confusedPhonetic: "/ˈɜːrdʒənsi/",
+          confusedPos: "n.",
+          confusedMeaning: "緊急、迫切",
+          mnemonic: "【音形微似】agency 是『經銷商/仲介行』；urgency (urgent 急迫的) 是『危機迫切性』。"
+        },
+        collocations: [
+          "<b>give them some agency fees</b> 付給他們仲介手續費",
+          "<b>travel agency</b> 旅行社"
+        ],
+        sentenceEn: "I have to give them some agency fees if they find a job for me.",
+        sentenceZh: "如果他們幫我找到工作，我得付給他們仲介費。",
+        family: [
+          { word: "agent", syllables: "a · gent", pos: "n.", meaning: "代理人、經紀人" }
+        ]
+      },
+      {
+        id: 38,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 1",
+        word: "agenda",
+        phonetic: "/əˈdʒendə/",
+        syllables: "a · gen · da",
+        pos: "n.",
+        meaning: "議程、日常工作事項",
+        etymologyHeader: "多益商務會議必考",
+        etymologyDesc: "單數形式為 agendum；action agenda (行動紀錄安排)；on the agenda (在議程上)。",
+        comparison: {
+          confusedWith: "calendar",
+          confusedPhonetic: "/ˈkælɪndər/",
+          confusedPos: "n.",
+          confusedMeaning: "日曆、行事曆",
+          mnemonic: "【會議議程 vs 行事曆】agenda 專指『會議討論事項清單項目』；calendar 是整月份『日程日期行事曆』。"
+        },
+        collocations: [
+          "<b>know the agenda at 9 o'clock</b> 在上午九點掌握會議議程事項",
+          "<b>items on the agenda</b> 議程上的各項討論要點"
+        ],
+        sentenceEn: "Your task is to let the boss know the agenda at 9 o'clock in the morning.",
+        sentenceZh: "你的任務就是讓老闆在上午九點知道日程議程表。",
+        family: [
+          { word: "schedule", syllables: "sched · ule", pos: "n.", meaning: "時程表" }
+        ]
+      },
+      {
+        id: 39,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 2",
+        word: "agent",
+        phonetic: "/ˈeɪdʒənt/",
+        syllables: "a · gent",
+        pos: "n.",
+        meaning: "代理人、代理商",
+        etymologyHeader: "職業與仲介角色",
+        etymologyDesc: "travel agent (旅遊代理人)；sales agent (業務代表、銷售代理)。",
+        comparison: {
+          confusedWith: "client",
+          confusedPhonetic: "/ˈklaɪənt/",
+          confusedPos: "n.",
+          confusedMeaning: "客戶、委託人",
+          mnemonic: "【委託者 vs 被委託代理人】client 是委託業務的『客戶買方』；agent 是受託代辦業務的『代理經紀人』。"
+        },
+        collocations: [
+          "<b>find a travel agent</b> 找一家旅行社代理人洽詢旅遊事宜",
+          "<b>sales agent</b> 銷售代理商"
+        ],
+        sentenceEn: "We decided to find a travel agent to consult about the travel-related things.",
+        sentenceZh: "我們打算找一個旅行代理人來諮詢一下旅行相關事宜。",
+        family: [
+          { word: "agency", syllables: "a · gen · cy", pos: "n.", meaning: "代理機構" }
+        ]
+      },
+      {
+        id: 40,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 3",
+        word: "allocate",
+        phonetic: "/ˈæləkeɪt/",
+        syllables: "al · lo · cate",
+        pos: "v.",
+        meaning: "分配、撥出、指定",
+        etymologyHeader: "專案預算撥款",
+        etymologyDesc: "及物動詞；allocate funds for... (撥款分配給…)；名詞為 allocation。",
+        comparison: {
+          confusedWith: "locate",
+          confusedPhonetic: "/ˈloʊkeɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "找出…位置、位於",
+          mnemonic: "【字首擴充】locate 只是『定位找到位置』；allocate (al- 朝向) 是『撥出預算分配款項』。"
+        },
+        collocations: [
+          "<b>allocate the money carefully</b> 審慎分配資金預算",
+          "<b>allocate funds</b> 撥款、分配資金"
+        ],
+        sentenceEn: "He allocated the money carefully in case that his partner had any complaint.",
+        sentenceZh: "他謹慎地分配這些錢，以防他的合作夥伴有任何意見。",
+        family: [
+          { word: "allocation", syllables: "al · lo · ca · tion", pos: "n.", meaning: "分配、配額" }
+        ]
+      },
+      {
+        id: 41,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 4",
+        word: "alternate",
+        phonetic: "/ˈɔːltərneɪt/",
+        syllables: "al · ter · nate",
+        pos: "v. / adj. / n.",
+        meaning: "輪流、交替；輪流的；替換物",
+        etymologyHeader: "混淆對決：alternate vs. alternative",
+        etymologyDesc: "alternate 重在「A與B兩者輪流交替循環」；也可以當替補備案 (alternate plan)。",
+        comparison: {
+          confusedWith: "alternative",
+          confusedPhonetic: "/ɔːlˈtɜːrnətɪv/",
+          confusedPos: "adj./n.",
+          confusedMeaning: "供選擇的、替代性的；替代案",
+          mnemonic: "【多益最常考混淆】alternate 是『交替輪流發生』(alternate days 隔天輪替)；alternative 是『另外的備用選擇方案』(alternative energy)。"
+        },
+        collocations: [
+          "<b>alternate plan</b> 替換備用計畫",
+          "<b>alternately</b> 交替地、輪流地"
+        ],
+        sentenceEn: "The alternate plan is made by the secretary.",
+        sentenceZh: "這個替代輪替計畫是秘書擬出來的。",
+        family: [
+          { word: "alternation", syllables: "al · ter · na · tion", pos: "n.", meaning: "交替、輪流" }
+        ]
+      },
+      {
+        id: 42,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 5",
+        word: "alternative",
+        phonetic: "/ɔːlˈtɜːrnətɪv/",
+        syllables: "al · ter · na · tive",
+        pos: "adj. / n.",
+        meaning: "供選擇的、交替的；二中擇一、選擇",
+        etymologyHeader: "必考替代能源",
+        etymologyDesc: "have no alternative but to (除了…別無選擇)；alternative energy (替代能源)。",
+        comparison: {
+          confusedWith: "alteration",
+          confusedPhonetic: "/ˌɔːltəˈreɪʃn/",
+          confusedPos: "n.",
+          confusedMeaning: "修改、改動 (合約或衣服修改)",
+          mnemonic: "【替代方案 vs 修改】alternative 是『另一種全然不同的選項』；alteration 是在現有基礎上『做局部小幅度修改』。"
+        },
+        collocations: [
+          "<b>no alternative for me to take the job</b> 我別無選擇，只能接受這份工作",
+          "<b>alternative energy</b> 替代能源 (綠能/再生能源)"
+        ],
+        sentenceEn: "There is no alternative for me to take the job.",
+        sentenceZh: "我別無選擇，只有接受這份工作。",
+        family: [
+          { word: "alternatively", syllables: "al · ter · na · tive · ly", pos: "adv.", meaning: "或者、二者擇一地" }
+        ]
+      },
+      // ================= PHOTO 4: P. 344-345 (Items 43 - 56) =================
+      {
+        id: 43,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "accuracy",
+        phonetic: "/ˈækjərəsi/",
+        syllables: "ac · cu · ra · cy",
+        pos: "n.",
+        meaning: "正確、準確",
+        etymologyHeader: "多益介系詞片語",
+        etymologyDesc: "with accuracy 等同於副詞 accurately (準確地)；exactness (準確)。",
+        comparison: {
+          confusedWith: "curiosity",
+          confusedPhonetic: "/ˌkjʊriˈɑːsəti/",
+          confusedPos: "n.",
+          confusedMeaning: "好奇心",
+          mnemonic: "【音韻區隔】accuracy 重在『精密數據零偏差』；curiosity 則是對事物感到『好奇』。"
+        },
+        collocations: [
+          "<b>speak out with accuracy</b> 準確無誤地說出工廠工人的精準數量",
+          "<b>accuracy rate</b> 準確率"
+        ],
+        sentenceEn: "I think it's easy to speak out the number of workers in the factory with accuracy.",
+        sentenceZh: "我想，準確報出工廠裡的工人人數很容易。",
+        family: [
+          { word: "accurate", syllables: "ac · cu · rate", pos: "adj.", meaning: "精確的" }
+        ]
+      },
+      {
+        id: 44,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 2",
+        word: "accustom",
+        phonetic: "/əˈkʌstəm/",
+        syllables: "ac · cus · tom",
+        pos: "v.",
+        meaning: "使習慣",
+        etymologyHeader: "文法大考點",
+        etymologyDesc: "accustom oneself to + N/V-ing (使自己適應習慣)；to 為介系詞後接動名詞。",
+        comparison: {
+          confusedWith: "custom",
+          confusedPhonetic: "/ˈkʌstəm/",
+          confusedPos: "n./adj.",
+          confusedMeaning: "習俗、海關；客製化的",
+          mnemonic: "【習俗 vs 適應習慣】custom 是『傳統習俗或海關』；加上 ac- 動詞化 accustom 是『適應習慣新流程』。"
+        },
+        collocations: [
+          "<b>accustom yourself to your job quickly</b> 讓自己儘快習慣新工作",
+          "<b>be accustomed to</b> 習慣於…"
+        ],
+        sentenceEn: "I think you should accustom yourself to your job quickly.",
+        sentenceZh: "我認為你應該盡快習慣你的工作。",
+        family: [
+          { word: "accustomed", syllables: "ac · cus · tomed", pos: "adj.", meaning: "習慣了的" }
+        ]
+      },
+      {
+        id: 45,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 3",
+        word: "acquirement",
+        phonetic: "/əˈkwaɪərmənt/",
+        syllables: "ac · quire · ment",
+        pos: "n.",
+        meaning: "取得、學得、才能、成就",
+        etymologyHeader: "名詞化才藝",
+        etymologyDesc: "由動詞 acquire (習得) + -ment 轉化，指苦練習得的學問、才華本領。",
+        comparison: {
+          confusedWith: "requirement",
+          confusedPhonetic: "/rɪˈkwaɪərmənt/",
+          confusedPos: "n.",
+          confusedMeaning: "必要條件、規定、要求",
+          mnemonic: "【才學 vs 門檻要求】acquirement 是個人具備的『才幹學養』；job requirement 是公司應徵開出的『資格門檻條件』。"
+        },
+        collocations: [
+          "<b>boasts of his acquirement</b> 誇耀他所習得的才華與學識",
+          "<b>capability / aptitude</b> 才能、天資"
+        ],
+        sentenceEn: "The boss always boasts of his acquirement in front of us.",
+        sentenceZh: "老闆總在我們面前誇耀他的才華與造詣。",
+        family: [
+          { word: "acquire", syllables: "ac · quire", pos: "v.", meaning: "取得、習得" }
+        ]
+      },
+      {
+        id: 46,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 4",
+        word: "adaption",
+        phonetic: "/əˈdæpʃn/",
+        syllables: "a · dap · tion",
+        pos: "n.",
+        meaning: "適應、改版本",
+        etymologyHeader: "拼寫注意",
+        etymologyDesc: "美式英語常寫作 adaptation；adaption abilities (適應能力)。",
+        comparison: {
+          confusedWith: "adoption",
+          confusedPhonetic: "/əˈdɑːpʃn/",
+          confusedPos: "n.",
+          confusedMeaning: "採用、收養",
+          mnemonic: "【音形絕命陷阱】adaption (來自 a=apt 適合 ➔ 適應能力)；adoption (來自 o=opt 選擇 ➔ 方案採納或孤兒領養)。"
+        },
+        collocations: [
+          "<b>adaption abilities</b> 適應能力",
+          "<b>film adaption</b> 電影改編版本"
+        ],
+        sentenceEn: "Adaption abilities are important when you come to a new company.",
+        sentenceZh: "當你進到一家新公司時，適應能力很重要。",
+        family: [
+          { word: "adapt", syllables: "a · dapt", pos: "v.", meaning: "使適應、改編" }
+        ]
+      },
+      {
+        id: 47,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 5",
+        word: "addition",
+        phonetic: "/əˈdɪʃn/",
+        syllables: "ad · di · tion",
+        pos: "n.",
+        meaning: "添加、加法、增加物",
+        etymologyHeader: "多益轉折片語",
+        etymologyDesc: "in addition to (除了…之外尚有)；with the addition of (隨著…增加)。",
+        comparison: {
+          confusedWith: "edition",
+          confusedPhonetic: "/ɪˈdɪʃn/",
+          confusedPos: "n.",
+          confusedMeaning: "版本、版次 (書籍雜誌版本)",
+          mnemonic: "【音近字速記】addition 含 add ➔『添加附加項目』；edition 是書刊刊印的『第一版/修訂版』(second edition)。"
+        },
+        collocations: [
+          "<b>in addition to that</b> 除了那個之外 (還需要加班)",
+          "<b>a valuable addition to the team</b> 團隊的新增生力軍"
+        ],
+        sentenceEn: "In addition to that, you have to work overtime.",
+        sentenceZh: "除了這個之外，你還得加班。",
+        family: [
+          { word: "add", syllables: "add", pos: "v.", meaning: "增加、相加" },
+          { word: "additional", syllables: "ad · di · tion · al", pos: "adj.", meaning: "額外的" }
+        ]
+      },
+      {
+        id: 48,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "additionally",
+        phonetic: "/əˈdɪʃənəli/",
+        syllables: "ad · di · tion · al · ly",
+        pos: "adv.",
+        meaning: "附加地、此外、另外",
+        etymologyHeader: "閱讀測驗轉折詞",
+        etymologyDesc: "放在句首用逗號隔開，用來修飾整個句子补充说明；等同於 moreover / furthermore。",
+        comparison: {
+          confusedWith: "traditionally",
+          confusedPhonetic: "/trəˈdɪʃənəli/",
+          confusedPos: "adv.",
+          confusedMeaning: "傳統上、照慣例",
+          mnemonic: "【字義天差地遠】additionally 是篇章連接詞『此外/另外補充』；traditionally 是『依循過往傳統習俗』。"
+        },
+        collocations: [
+          "<b>Additionally, you can get a good pay</b> 此外，你在我們公司可以獲得優渥薪水",
+          "<b>moreover / furthermore</b> 此外、而且"
+        ],
+        sentenceEn: "Additionally, you can get a good pay in our company.",
+        sentenceZh: "除此以外，你在我們公司可以得到優渥的薪水。",
+        family: [
+          { word: "addition", syllables: "ad · di · tion", pos: "n.", meaning: "附加物" }
+        ]
+      },
+      {
+        id: 49,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 2",
+        word: "adherence",
+        phonetic: "/ədˈhɪrəns/",
+        syllables: "ad · her · ence",
+        pos: "n.",
+        meaning: "堅持、依附、忠誠",
+        etymologyHeader: "合約遵循與忠誠",
+        etymologyDesc: "常接介系詞 to：adherence to company (忠於公司)；adherence to principles (堅守原則)。",
+        comparison: {
+          confusedWith: "coherence",
+          confusedPhonetic: "/koʊˈhɪrəns/",
+          confusedPos: "n.",
+          confusedMeaning: "連貫性、一致性 (邏輯條理)",
+          mnemonic: "【字首比對】adherence (ad- 朝向 ➔ 忠誠堅持守法)；coherence (co- 共同結合 ➔ 文章邏輯連貫通順)。"
+        },
+        collocations: [
+          "<b>give his adherence to the company</b> 他對公司的堅定忠誠效忠",
+          "<b>loyalty / tenacity</b> 忠誠、堅持不懈"
+        ],
+        sentenceEn: "That is why he gives his adherence to the company.",
+        sentenceZh: "這就是他忠於公司的原因。",
+        family: [
+          { word: "adhere", syllables: "ad · here", pos: "v.", meaning: "堅持、黏附 (adhere to rules)" }
+        ]
+      },
+      {
+        id: 50,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 3",
+        word: "adjustment",
+        phonetic: "/əˈdʒʌstmənt/",
+        syllables: "ad · just · ment",
+        pos: "n.",
+        meaning: "調整、調節、調節器",
+        etymologyHeader: "商務工時調配",
+        etymologyDesc: "make an adjustment to + N (對某事物做出適度調整)；price adjustment (價格調降/調整)。",
+        comparison: {
+          confusedWith: "judgment",
+          confusedPhonetic: "/ˈdʒʌdʒmənt/",
+          confusedPos: "n.",
+          confusedMeaning: "審判、判斷、裁決",
+          mnemonic: "【詞根辨析】adjustment 是『校準微調參數或工時』；judgment 是法官或主管做出的『主觀判斷裁定』。"
+        },
+        collocations: [
+          "<b>make an adjustment to the work time</b> 對工作時間作出調整安排",
+          "<b>price adjustment</b> 價格調整"
+        ],
+        sentenceEn: "It is said the boss will make an adjustment to the work time.",
+        sentenceZh: "據說，老闆將會對工作時間作出調整。",
+        family: [
+          { word: "adjust", syllables: "ad · just", pos: "v.", meaning: "調整、校準" }
+        ]
+      },
+      {
+        id: 51,
+        categoryId: 1,
+        categoryName: "❶ 核心詞族",
+        level: "LEVEL 1",
+        word: "admirable",
+        phonetic: "/ˈædmərəbl/",
+        syllables: "ad · mi · ra · ble",
+        pos: "adj.",
+        meaning: "令人欽佩的、極好的、值得讚揚的",
+        etymologyHeader: "職場品格形容詞",
+        etymologyDesc: "由動詞 admire (欽佩、羨慕) + -able 構成；laudable 值得讚揚的。",
+        comparison: {
+          confusedWith: "admissible",
+          confusedPhonetic: "/ədˈmɪsəbl/",
+          confusedPos: "adj.",
+          confusedMeaning: "可容許的、(法庭上) 可採信接納的",
+          mnemonic: "【音形切莫混】admirable 含有 admire (讚賞欽佩)；admissible 含有 admit (准許接納 ➔ 法庭證據可採信)。"
+        },
+        collocations: [
+          "<b>new colleague's behavior is always admirable</b> 新來的同事其行為總是讓人佩服",
+          "<b>admirable performance</b> 優美的表演"
+        ],
+        sentenceEn: "To my surprise, the new colleague's behavior is always admirable.",
+        sentenceZh: "令我吃驚的是，新來的同事的行為總是讓人佩服。",
+        family: [
+          { word: "admire", syllables: "ad · mire", pos: "v.", meaning: "欽佩、羨慕" }
+        ]
+      },
+      {
+        id: 52,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 3",
+        word: "adverse",
+        phonetic: "/ˈædvɜːrs/",
+        syllables: "ad · verse",
+        pos: "adj.",
+        meaning: "相反的、不利的、逆向的",
+        etymologyHeader: "商業副作用考點",
+        etymologyDesc: "adverse effects (副作用、負面影響)；adversely (不利地)；adversary (對手、敵手)。",
+        comparison: {
+          confusedWith: "averse",
+          confusedPhonetic: "/əˈvɜːrs/",
+          confusedPos: "adj.",
+          confusedMeaning: "嫌惡的、反對的 (be averse to)",
+          mnemonic: "【客觀條件 vs 主觀意願】adverse 指客觀『不利的環境條件或藥品副作用』；averse 指人主觀『極度排斥討厭某事物』。"
+        },
+        collocations: [
+          "<b>don't have any adverse effects</b> 沒有任何副作用的優質產品",
+          "<b>adverse weather conditions</b> 惡劣不利的天候條件"
+        ],
+        sentenceEn: "I prefer those that don't have any adverse effects.",
+        sentenceZh: "我喜歡那些沒有任何副作用的產品。",
+        family: [
+          { word: "adversity", syllables: "ad · ver · si · ty", pos: "n.", meaning: "逆境、窘境" },
+          { word: "adversely", syllables: "ad · verse · ly", pos: "adv.", meaning: "不利地" }
+        ]
+      },
+      {
+        id: 53,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 4",
+        word: "aggravate",
+        phonetic: "/ˈæɡrəveɪt/",
+        syllables: "ag · gra · vate",
+        pos: "v.",
+        meaning: "加重、使惡化",
+        etymologyHeader: "病況與危機加劇",
+        etymologyDesc: "常在句中用被動 be aggravated at/by (因…而發怒) 或接事物 (aggravate illness/toothache)。",
+        comparison: {
+          confusedWith: "aggregate",
+          confusedPhonetic: "/ˈæɡrɪɡət/",
+          confusedPos: "v./n./adj.",
+          confusedMeaning: "聚集、合計；總計的",
+          mnemonic: "【雙胞混淆高頻】aggravate 含有 grav (沉重 gravity ➔ 病情惡化沉重)；aggregate 含有 greg (羊群/群體 ➔ 聚集合計)。"
+        },
+        collocations: [
+          "<b>working overtime aggravated his toothache</b> 加班使他的牙痛加重了",
+          "<b>aggravate the crisis</b> 使危機進一步惡化"
+        ],
+        sentenceEn: "I think it was working overtime that aggravated his toothache.",
+        sentenceZh: "我認為加班使他的牙痛加重了。",
+        family: [
+          { word: "aggravation", syllables: "ag · gra · va · tion", pos: "n.", meaning: "加重、惡化、惱火" }
+        ]
+      },
+      {
+        id: 54,
+        categoryId: 2,
+        categoryName: "❷ 字首字根",
+        level: "LEVEL 5",
+        word: "aggregate",
+        phonetic: "/ˈæɡrɪɡət/",
+        syllables: "ag · gre · gate",
+        pos: "n. / adj. / v.",
+        meaning: "合計、總計；集合的、合計的；集合、合計",
+        etymologyHeader: "片語高頻考點",
+        etymologyDesc: "on aggregate (總而言之、總共)；in the aggregate (整體上看來)；aggregator (聚合器)。",
+        comparison: {
+          confusedWith: "segregate",
+          confusedPhonetic: "/ˈseɡrɪɡeɪt/",
+          confusedPos: "v.",
+          confusedMeaning: "隔離、分開 (按群體區分)",
+          mnemonic: "【合群 vs 隔離】aggregate (ag- 湊在一起合計聚集)；segregate (se- 分開 ➔ 隔離區隔開來)。"
+        },
+        collocations: [
+          "<b>does well on aggregate</b> 總而言之表現非常不錯",
+          "<b>aggregate demand</b> 總需求 (經濟學詞彙)"
+        ],
+        sentenceEn: "The new colleague does well on aggregate.",
+        sentenceZh: "總而言之，那個新同事表現不錯。",
+        family: [
+          { word: "aggregation", syllables: "ag · gre · ga · tion", pos: "n.", meaning: "聚集、聚集體" }
+        ]
+      },
+      {
+        id: 55,
+        categoryId: 4,
+        categoryName: "❹ 多益商務",
+        level: "LEVEL 1",
+        word: "air-conditioner",
+        phonetic: "/ˈerkənˌdɪʃənər/",
+        syllables: "air-con · di · tion · er",
+        pos: "n.",
+        meaning: "空調、冷氣機",
+        etymologyHeader: "辦公設備故障題",
+        etymologyDesc: "air + conditioner 複合名詞，可數名詞，亦可不連字寫作 air conditioner。",
+        comparison: {
+          confusedWith: "refrigerator",
+          confusedPhonetic: "/rɪˈfrɪdʒəreɪtər/",
+          confusedPos: "n.",
+          confusedMeaning: "冰箱、冷凍機",
+          mnemonic: "【家電用品區分】air-conditioner 調節整個辦公室『空氣溫度 (空調)』；refrigerator 存放冷飲食物『冰箱』。"
+        },
+        collocations: [
+          "<b>air-conditioner didn't work yesterday</b> 昨天辦公室裡的空調壞掉了",
+          "<b>central air-conditioning</b> 中央空調系統"
+        ],
+        sentenceEn: "The air-conditioner in our office didn't work yesterday.",
+        sentenceZh: "昨天辦公室裡的空調壞了。",
+        family: [
+          { word: "conditioner", syllables: "con · di · tion · er", pos: "n.", meaning: "調節器、護髮素" }
+        ]
+      },
+      {
+        id: 56,
+        categoryId: 3,
+        categoryName: "❸ 雙胞混淆",
+        level: "LEVEL 2",
+        word: "amateur",
+        phonetic: "/ˈæmətʃər/",
+        syllables: "am · a · teur",
+        pos: "n. / adj.",
+        meaning: "愛好者、業餘愛好者；業餘的、外行的",
+        etymologyHeader: "外行與專業對比",
+        etymologyDesc: "反義詞為 professional (專業的)；amateurish (業餘不成熟的)；amateur at (在某方面外行)。",
+        comparison: {
+          confusedWith: "professional",
+          confusedPhonetic: "/prəˈfeʃənl/",
+          confusedPos: "adj./n.",
+          confusedMeaning: "專業的、職業的；專業人士",
+          mnemonic: "【愛好 vs 專業】amateur (amat 愛 ➔ 純憑業餘個人愛好)；professional (經嚴格訓練靠專業謀生)。"
+        },
+        collocations: [
+          "<b>amateur at marketing</b> 行銷方面的外行人",
+          "<b>amateurish performance</b> 業餘外行的演出"
+        ],
+        sentenceEn: "How can you employ the man who is amateur at marketing?",
+        sentenceZh: "你怎麼能聘請一個行銷方面的外行人呢？",
+        family: [
+          { word: "amateurish", syllables: "am · a · teur · ish", pos: "adj.", meaning: "業餘技術不成熟的" }
+        ]
+      }
+    ];
+
+    let activeCardIndex = 0;
+    let autoPronounce = false;
+    let isShuffled = false;
+    let filteredIndices = vocabularyList.map((_, i) => i);
+    let selectedCategoryId = 0;
+
+    // Web Speech API Pronunciation Engine
+    function pronounceSpeech(textString, rateValue = 0.85) {
+      if (!('speechSynthesis' in window)) {
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const cleanText = textString.replace(/<[^>]*>?/gm, '');
+      const voiceUtterance = new SpeechSynthesisUtterance(cleanText);
+      voiceUtterance.lang = 'en-US';
+      voiceUtterance.rate = rateValue;
+
+      const mainSpeakerBtn = document.getElementById('pronounceMainBtn');
+      const vocabTitle = document.getElementById('vocabWord');
+
+      voiceUtterance.onstart = () => {
+        if (mainSpeakerBtn) mainSpeakerBtn.classList.add('audio-active');
+        if (vocabTitle) vocabTitle.classList.add('speaking-glow');
+      };
+
+      voiceUtterance.onend = voiceUtterance.onerror = () => {
+        if (mainSpeakerBtn) mainSpeakerBtn.classList.remove('audio-active');
+        if (vocabTitle) vocabTitle.classList.remove('speaking-glow');
+      };
+
+      window.speechSynthesis.speak(voiceUtterance);
+    }
+
+    function speakCurrentWord() {
+      const activeObj = vocabularyList[filteredIndices[activeCardIndex]];
+      if (activeObj) {
+        pronounceSpeech(activeObj.word, 0.85);
+      }
+    }
+
+    function speakSentence() {
+      const activeObj = vocabularyList[filteredIndices[activeCardIndex]];
+      if (activeObj) {
+        pronounceSpeech(activeObj.sentenceEn, 0.9);
+      }
+    }
+
+    function toggleAutoPronounce() {
+      autoPronounce = !autoPronounce;
+      const statusLabel = document.getElementById('autoSpeakStatus');
+      const toggleBtn = document.getElementById('autoSpeakToggle');
+      if (autoPronounce) {
+        statusLabel.innerText = "自動朗讀: 開";
+        toggleBtn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+        toggleBtn.classList.remove('bg-slate-800', 'text-slate-300');
+        speakCurrentWord();
+      } else {
+        statusLabel.innerText = "自動朗讀: 關";
+        toggleBtn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500');
+        toggleBtn.classList.add('bg-slate-800', 'text-slate-300');
+      }
+    }
+
+    function toggleShuffle() {
+      isShuffled = !isShuffled;
+      const shuffleBtn = document.getElementById('shuffleBtn');
+      if (isShuffled) {
+        shuffleBtn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500');
+        shuffleBtn.classList.remove('bg-slate-800', 'text-slate-300');
+        for (let i = filteredIndices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [filteredIndices[i], filteredIndices[j]] = [filteredIndices[j], filteredIndices[i]];
+        }
+      } else {
+        shuffleBtn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500');
+        shuffleBtn.classList.add('bg-slate-800', 'text-slate-300');
+        switchCategory(selectedCategoryId);
+        return;
+      }
+      activeCardIndex = 0;
+      renderFlashcard();
+      buildDirectoryUI();
+    }
+
+    function renderFlashcard() {
+      const targetIndex = filteredIndices[activeCardIndex];
+      const cardData = vocabularyList[targetIndex];
+      if (!cardData) return;
+
+      const scrollBody = document.getElementById('cardScrollBody');
+      if (scrollBody) scrollBody.scrollTop = 0;
+
+      document.getElementById('badgeCategory').innerText = cardData.categoryName;
+      document.getElementById('badgeLevel').innerText = cardData.level;
+      document.getElementById('cardIndexLabel').innerText = 
+        `${String(activeCardIndex + 1).padStart(2, '0')} / ${String(filteredIndices.length).padStart(2, '0')}`;
+      
+      const percentDone = ((activeCardIndex + 1) / filteredIndices.length) * 100;
+      document.getElementById('deckProgressBar').style.width = `${percentDone}%`;
+
+      document.getElementById('vocabWord').innerText = cardData.word;
+      document.getElementById('vocabPhonetic').innerText = cardData.phonetic;
+      document.getElementById('vocabSyllables').innerText = cardData.syllables;
+      document.getElementById('vocabPos').innerText = cardData.pos;
+      document.getElementById('vocabMeaning').innerText = cardData.meaning;
+
+      // Render Confusing Words Comparison Section
+      const comparisonBlock = document.getElementById('confusionComparisonBlock');
+      const comparisonContainer = document.getElementById('confusionCardsContainer');
+      if (cardData.comparison) {
+        comparisonBlock.classList.remove('hidden');
+        comparisonContainer.innerHTML = `
+          <div class="grid grid-cols-2 gap-2 bg-white/95 rounded-xl p-2.5 border border-amber-200 shadow-xs">
+            <!-- Current Word Subcard -->
+            <div class="bg-indigo-50/70 border border-indigo-200/90 rounded-lg p-2 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-en font-black text-slate-900 text-sm truncate">${cardData.word}</span>
+                <button onclick="pronounceSpeech('${cardData.word}', 0.85)" class="w-6 h-6 rounded-full bg-indigo-100 hover:bg-indigo-200 text-indigo-700 flex items-center justify-center shrink-0 text-[10px]" title="聽發音">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+              </div>
+              <div class="mt-1">
+                <span class="font-mono text-[10px] text-slate-500 font-semibold">${cardData.phonetic}</span>
+                <p class="text-xs text-indigo-900 font-bold mt-0.5 leading-tight">${cardData.meaning}</p>
+              </div>
+            </div>
+
+            <!-- Confused Counterpart Subcard -->
+            <div class="bg-rose-50/70 border border-rose-200/90 rounded-lg p-2 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-en font-black text-rose-950 text-sm truncate">${cardData.comparison.confusedWith}</span>
+                <button onclick="pronounceSpeech('${cardData.comparison.confusedWith}', 0.85)" class="w-6 h-6 rounded-full bg-rose-100 hover:bg-rose-200 text-rose-700 flex items-center justify-center shrink-0 text-[10px]" title="聽發音">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+              </div>
+              <div class="mt-1">
+                <span class="font-mono text-[10px] text-rose-500 font-semibold">${cardData.comparison.confusedPhonetic}</span>
+                <p class="text-xs text-rose-900 font-bold mt-0.5 leading-tight">${cardData.comparison.confusedMeaning}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mnemonic Hint -->
+          <div class="bg-amber-100/70 border border-amber-300/80 rounded-xl px-3 py-2 text-xs text-amber-950 leading-relaxed font-medium">
+            <span class="font-bold text-amber-900"><i class="fa-solid fa-key text-[11px] mr-1 text-amber-700"></i>破題心法：</span>
+            ${cardData.comparison.mnemonic}
+          </div>
+        `;
+      } else {
+        comparisonBlock.classList.add('hidden');
+      }
+
+      document.getElementById('etymologyHeader').innerText = cardData.etymologyHeader + "：";
+      document.getElementById('etymologyContent').innerText = cardData.etymologyDesc;
+
+      const collocBox = document.getElementById('collocationBox');
+      collocBox.innerHTML = cardData.collocations.map(col => `
+        <div class="flex items-start gap-2">
+          <span class="text-indigo-500 font-bold leading-tight mt-0.5">•</span>
+          <span class="leading-relaxed flex-1">${col}</span>
+        </div>
+      `).join('');
+
+      const highlightedEn = cardData.sentenceEn.replace(
+        new RegExp(`\\b${cardData.word}\\b`, 'gi'), 
+        `<b class="text-indigo-700 underline decoration-indigo-300 decoration-2 underline-offset-2">$1</b>`
+      );
+      document.getElementById('sentenceEnText').innerHTML = highlightedEn;
+      document.getElementById('sentenceZhText').innerText = cardData.sentenceZh;
+
+      const familyBlock = document.getElementById('familyBlock');
+      const familyContainer = document.getElementById('familyContainer');
+      if (cardData.family && cardData.family.length > 0) {
+        familyBlock.classList.remove('hidden');
+        familyContainer.innerHTML = cardData.family.map(fam => `
+          <div class="flex items-center justify-between bg-white/95 p-2.5 rounded-xl border border-indigo-100 shadow-xs">
+            <div class="flex-1 min-w-0 pr-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-slate-900 font-en text-xs sm:text-sm">${fam.word}</span>
+                <span class="text-[10px] text-indigo-700 font-bold px-1.5 py-0.5 bg-indigo-100 rounded font-mono">${fam.pos}</span>
+                <span class="text-[10px] text-slate-500 font-mono">${fam.syllables}</span>
+              </div>
+              <p class="text-slate-600 text-[11px] sm:text-xs mt-0.5 truncate">${fam.meaning}</p>
+            </div>
+            <button onclick="pronounceSpeech('${fam.word}', 0.85)" class="w-7 h-7 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 active:scale-90 transition text-xs" title="聆聽衍生字發音">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+        `).join('');
+      } else {
+        familyBlock.classList.add('hidden');
+      }
+
+      if (autoPronounce) {
+        setTimeout(speakCurrentWord, 250);
+      }
+    }
+
+    function nextCard() {
+      if (activeCardIndex < filteredIndices.length - 1) {
+        activeCardIndex++;
+      } else {
+        activeCardIndex = 0;
+      }
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      if (activeCardIndex > 0) {
+        activeCardIndex--;
+      } else {
+        activeCardIndex = filteredIndices.length - 1;
+      }
+      renderFlashcard();
+    }
+
+    function switchCategory(catId) {
+      selectedCategoryId = catId;
+      isShuffled = false;
+      const shuffleBtn = document.getElementById('shuffleBtn');
+      if (shuffleBtn) {
+        shuffleBtn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500');
+        shuffleBtn.classList.add('bg-slate-800', 'text-slate-300');
+      }
+
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        const id = parseInt(btn.dataset.id);
+        if (id === catId) {
+          btn.className = "cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-indigo-600 text-white shadow-sm font-bold";
+        } else {
+          btn.className = "cat-btn px-3.5 py-1 rounded-full whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium";
+        }
+      });
+
+      if (catId === 0) {
+        filteredIndices = vocabularyList.map((_, i) => i);
+      } else {
+        filteredIndices = [];
+        vocabularyList.forEach((item, index) => {
+          if (item.categoryId === catId) {
+            filteredIndices.push(index);
+          }
+        });
+      }
+
+      activeCardIndex = 0;
+      renderFlashcard();
+      buildDirectoryUI();
+    }
+
+    function toggleModal(isVisible) {
+      const modal = document.getElementById('directoryModal');
+      if (isVisible) {
+        buildDirectoryUI();
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('dirSearchInput').focus();
+        }, 150);
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function jumpToWord(fullListIndex) {
+      let relativeIndex = filteredIndices.indexOf(fullListIndex);
+      if (relativeIndex === -1) {
+        switchCategory(0);
+        relativeIndex = fullListIndex;
+      }
+      activeCardIndex = relativeIndex;
+      renderFlashcard();
+      toggleModal(false);
+    }
+
+    function filterDirectoryList() {
+      const query = document.getElementById('dirSearchInput').value.toLowerCase().trim();
+      buildDirectoryUI(query);
+    }
+
+    function buildDirectoryUI(searchQuery = '') {
+      const container = document.getElementById('directoryListItems');
+      const itemsToRender = vocabularyList.filter((item, idx) => {
+        if (!searchQuery) return true;
+        const inComparison = item.comparison ? 
+          (item.comparison.confusedWith.toLowerCase().includes(searchQuery) || item.comparison.confusedMeaning.toLowerCase().includes(searchQuery)) : false;
+        return item.word.toLowerCase().includes(searchQuery) ||
+               item.meaning.toLowerCase().includes(searchQuery) ||
+               item.phonetic.toLowerCase().includes(searchQuery) ||
+               inComparison;
+      });
+
+      if (itemsToRender.length === 0) {
+        container.innerHTML = `<div class="text-center py-8 text-xs text-slate-400">查無符合的單字</div>`;
+        return;
+      }
+
+      container.innerHTML = itemsToRender.map(item => {
+        const fullIndex = item.id - 1;
+        const isCurrent = filteredIndices[activeCardIndex] === fullIndex;
+        const hasCompare = !!item.comparison;
+        return `
+          <div onclick="jumpToWord(${fullIndex})" class="p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition active:scale-98 ${isCurrent ? 'bg-indigo-50 border-indigo-300 shadow-xs' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}">
+            <div class="flex items-center gap-2.5 min-w-0 pr-2">
+              <span class="font-mono text-xs font-bold text-slate-400 w-5 shrink-0">${String(item.id).padStart(2, '0')}</span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-en font-bold text-slate-900 text-xs sm:text-sm">${item.word}</span>
+                  <span class="text-[10px] text-slate-500 font-mono">${item.syllables}</span>
+                  ${hasCompare ? `<span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded border border-amber-300">vs ${item.comparison.confusedWith}</span>` : ''}
+                </div>
+                <p class="text-xs text-slate-600 truncate mt-0.5">${item.meaning}</p>
+              </div>
+            </div>
+            <button onclick="event.stopPropagation(); pronounceSpeech('${item.word}', 0.85)" class="w-7 h-7 rounded-full bg-white hover:bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 border border-slate-200 text-xs">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Touch swipe gestures
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeSurface = document.getElementById('cardScrollBody');
+
+    swipeSurface.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    swipeSurface.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) {
+        nextCard();
+      } else if (touchEndX > touchStartX + 50) {
+        prevCard();
+      }
+    }, { passive: true });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextCard();
+      } else if (e.key === 'ArrowLeft') {
+        prevCard();
+      } else if (e.key === 'p' || e.key === 'P') {
+        speakCurrentWord();
+      }
+    });
+
+    window.onload = () => {
+      autoScaleViewport();
+      renderFlashcard();
+    };
+  </script>
+</body>
+</html>
